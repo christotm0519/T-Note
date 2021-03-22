@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">T-Note</string>
+    <string-array name="temes">
+        <item>Predeterminat</item>
+        <item>Nit clara</item>
+        <item>Nit fosca</item>
+    </string-array>
 </resources>
