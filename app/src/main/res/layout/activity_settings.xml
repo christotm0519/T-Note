@@ -20,7 +20,7 @@
             app:srcCompat="@drawable/IconTNote" />
 
         <ImageButton
-            android:id="@+id/imageButton8"
+            android:id="@+id/boton_Settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
