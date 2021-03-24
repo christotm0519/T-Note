@@ -74,7 +74,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:background="#FFFFFF"
-            app:srcCompat="@drawable/IconNota" />
+            app:srcCompat="@drawable/IconSettings" />
 
         <Button
             android:id="@+id/boton_TancarSessio"
