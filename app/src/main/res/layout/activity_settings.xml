@@ -106,5 +106,11 @@
             android:entries="@array/temes"
             android:fontFamily="@font/amatic_sc" />
 
+        <Button
+            android:id="@+id/boton_TancarSessio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

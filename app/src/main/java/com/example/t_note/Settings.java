@@ -12,7 +12,7 @@ import android.widget.Spinner;
 public class Settings extends AppCompatActivity {
 
 
-    private Button canviarpass;
+    private Button canviarpass, tancarSessio;
     private Spinner tema;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,14 @@ public class Settings extends AppCompatActivity {
         findViewById(R.id.fotoperfil);
         findViewById(R.id.nomUsuari);
         tema= findViewById(R.id.tema);
+        tancarSessio = this.findViewById(R.id.boton_TancarSessio);
 
+        tancarSessio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Tancar sessió
+            }
+        });
 
         canviarpass.setOnClickListener(new View.OnClickListener() {
             @Override
