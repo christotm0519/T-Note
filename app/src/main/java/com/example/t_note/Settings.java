@@ -2,6 +2,7 @@ package com.example.t_note;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,13 +29,15 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Tancar sessió
+                goToCloseLogin();
             }
         });
 
         canviarpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
+                //Canviar contrassenya
+                goToChangePassword();
             }
         });
         tema.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -51,5 +54,16 @@ public class Settings extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void goToCloseLogin(){
+        Intent intent = new Intent(this,MainActivity.class);
+        //intent.putExtra -> en cas de voler enviar dades
+        startActivity(intent);
+    }
+
+    public void goToChangePassword(){
+        //Intent intent = new Intent(this,.class);
+        //startActivity(intent);
     }
 }

@@ -2,12 +2,13 @@ package com.example.t_note;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     EditText usuari, contrasenya;
     Button confirmar, forgot,registrar;
@@ -24,25 +25,57 @@ public class MainActivity extends AppCompatActivity {
         forgot = this.findViewById(R.id.botonM_ForgotPassword);
         registrar = this.findViewById(R.id.botonM_Registrarse);
 
+        /*
         confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Iniciar pantalla main
+
             }
         });
 
         forgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Iniciar pantalla de perdua de contrasenya
+
             }
         });
 
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Iniciar pantalla de registrar
+
             }
         });
+
+         */
+    }
+
+    public void gotToRegistrar(){
+        Intent intent = new Intent(this,RegistrarActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToForgotPassword(){
+        //Intent intent = new Intent(this,.class);
+        //startActivity(intent);
+    }
+
+    public void goToLogin(){
+        //Intent intent = new Intent(this,.class);
+        //startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(R.id.botonM_Confirmar == v.getId()){
+            //Iniciar pantalla main
+
+        }if(R.id.botonM_ForgotPassword == v.getId()){
+            //Iniciar pantalla de perdua de contrasenya
+
+        }if(R.id.botonM_Registrarse == v.getId()){
+            //Iniciar pantalla de registrar
+            gotToRegistrar();
+        }
     }
 }
