@@ -17,7 +17,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            app:srcCompat="@drawable/IconTNote" />
+            app:srcCompat="@drawable/icontnote" />
 
         <ImageButton
             android:id="@+id/boton_Settings"
@@ -49,10 +49,9 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
-            android:fontFamily="@font/amatic_sc"
             android:text="Nom d’usuari " />
 
-        <EditText
+        <TextView
             android:id="@+id/nomUsuari"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,12 +61,13 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:ems="10"
-            android:fontFamily="@font/amatic_sc"
+            android:gravity="center"
             android:inputType="textPersonName"
             android:text="Usuari01" />
 
         <Button
             android:id="@+id/canviarpass"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -75,13 +75,10 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
-            android:fontFamily="@font/amatic_sc"
-            android:text="Canviar contrasenya "
-            android:textColor="#000000"
-            app:backgroundTint="#D9D9D9" />
+            android:text="Canviar contrasenya " />
 
-        <TextView
-            android:id="@+id/textView3"
+        <Button
+            android:id="@+id/tema"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -89,28 +86,23 @@
             android:layout_marginLeft="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:background="#BDBDBD"
-            android:fontFamily="@font/amatic_sc"
             android:gravity="center"
             android:text="TEMA"
             android:textSize="20dp" />
 
-        <Spinner
-            android:id="@+id/tema"
+
+        <Button
+            android:id="@+id/boton_TancarSessio"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:entries="@array/temes"
-            android:fontFamily="@font/amatic_sc" />
+            android:text="Tancar Sessió" />
 
-        <Button
-            android:id="@+id/boton_TancarSessio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

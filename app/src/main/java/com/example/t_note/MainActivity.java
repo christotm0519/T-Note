@@ -25,14 +25,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         forgot = this.findViewById(R.id.botonM_ForgotPassword);
         registrar = this.findViewById(R.id.botonM_Registrarse);
 
-        /*
+
         confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                gotoPantallaActivity();
             }
         });
-
+        /*
         forgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +63,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void goToLogin(){
         //Intent intent = new Intent(this,.class);
         //startActivity(intent);
+    }
+    public void gotoPantallaActivity(){
+        Intent intent = new Intent( this, PantallaActivity.class);
+        startActivity(intent);
+
     }
 
     @Override

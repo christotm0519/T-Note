@@ -10,8 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TNote">
         <activity android:name=".PantallaActivity"></activity>
+        <activity android:name=".Settings"></activity>
         <activity android:name=".RegistrarActivity" />
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

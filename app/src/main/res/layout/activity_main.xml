@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        app:srcCompat="@drawable/IconTNote" />
+        app:srcCompat="@drawable/icontnote" />
     <TextView
         android:id="@+id/text_IniciarSessio"
         android:layout_width="wrap_content"
@@ -50,9 +50,10 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:text="CONFIRMAR"/>
+
     <Button
         android:id="@+id/botonM_ForgotPassword"
-        style="?android:attr/buttonStyleSmall"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
@@ -61,7 +62,7 @@
 
     <Button
         android:id="@+id/botonM_Registrarse"
-        style="?android:attr/buttonStyleSmall"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="bottom"
