@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity{
 
     EditText usuari, contrasenya;
     Button confirmar, forgot,registrar;
@@ -27,13 +27,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         confirmar.setOnClickListener(new View.OnClickListener() {
+            //Iniciar pantalla main
             @Override
             public void onClick(View v) {
                 gotoPantallaActivity();
             }
         });
-        /*
+
         forgot.setOnClickListener(new View.OnClickListener() {
+            //Iniciar pantalla de perdua de contrasenya
             @Override
             public void onClick(View v) {
 
@@ -41,13 +43,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         registrar.setOnClickListener(new View.OnClickListener() {
+            //Iniciar pantalla de registrar
             @Override
             public void onClick(View v) {
-
+                gotToRegistrar();
             }
         });
-
-         */
     }
 
     public void gotToRegistrar(){
@@ -68,19 +69,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent( this, PantallaActivity.class);
         startActivity(intent);
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        if(R.id.botonM_Confirmar == v.getId()){
-            //Iniciar pantalla main
-
-        }if(R.id.botonM_ForgotPassword == v.getId()){
-            //Iniciar pantalla de perdua de contrasenya
-
-        }if(R.id.botonM_Registrarse == v.getId()){
-            //Iniciar pantalla de registrar
-            gotToRegistrar();
-        }
     }
 }
