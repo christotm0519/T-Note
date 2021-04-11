@@ -2,11 +2,16 @@ package com.example.t_note;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -38,7 +43,18 @@ public class MainActivity extends AppCompatActivity{
             //Iniciar pantalla de perdua de contrasenya
             @Override
             public void onClick(View v) {
+                new MaterialAlertDialogBuilder(MainActivity.this)
 
+                        .setTitle("Has oblidat la contrasenya?")
+
+                        .setPositiveButton("Enviar correu", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.d("MainActivity", "Correu enviat");
+                                //AFEGIR ELIMINAR NOTA
+                            }
+                        })
+                        .show();
             }
         });
 
