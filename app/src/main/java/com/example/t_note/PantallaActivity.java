@@ -1,27 +1,38 @@
 package com.example.t_note;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.t_note.Model.TextNote;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PantallaActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageButton eliminar, compartir, copiar,configuracio, crearNota;
     private Button tot, mensual, anual;
-
+    private RecyclerView rview;
+    private List<TextNote> notestext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla);
+
+
+
 
         //ImatgeButtons
         eliminar = this.findViewById(R.id.boton_Eliminar);
@@ -29,12 +40,21 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
         copiar = this.findViewById(R.id.boton_Copia);
         configuracio = this.findViewById(R.id.boton_Configuracio);
         crearNota = this.findViewById(R.id.boton_CrearNota);
+        rview= findViewById(R.id.recycle);
 
         //Button
         tot = this.findViewById(R.id.boton_Tot);
         mensual = this.findViewById(R.id.boton_Mensual);
         anual = this.findViewById(R.id.boton_Anual);
 
+        notestext=new ArrayList<>();
+        notestext.add(new TextNote("Titol1",37,"Hola"));
+        notestext.add(new TextNote("Titol2",37,"q tal"));
+        notestext.add(new TextNote("Titol2",37,"xd"));
+        ListAdapterNote listAdapterNote = new ListAdapterNote(notestext,this);
+        rview.setHasFixedSize(true);
+        rview.setLayoutManager(new LinearLayoutManager(this));
+        rview.setAdapter(listAdapterNote);
 
         //Eliminar
         eliminar.setOnClickListener(new View.OnClickListener() {
