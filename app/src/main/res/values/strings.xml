@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">T-Note</string>
+    <string name="content_description_media">temporal</string>
     <string-array name="temes">
         <item>Predeterminat</item>
         <item>Nit clara</item>

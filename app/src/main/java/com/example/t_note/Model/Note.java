@@ -5,8 +5,8 @@ import android.provider.ContactsContract;
 public class Note {
     private String tittle;
     private ContactsContract.Contacts.Data dataCreació;
-
-    public Note(String tittle, ContactsContract.Contacts.Data dataCreació) {
+   // private int dataCreació;
+    public Note(String tittle, int data /*ContactsContract.Contacts.Data dataCreació*/) {
         this.tittle = tittle;
         this.dataCreació = dataCreació;
     }
