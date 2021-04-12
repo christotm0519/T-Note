@@ -20,7 +20,7 @@ import java.util.List;
 public class NotaActivity extends AppCompatActivity {
     private ImageButton guardar,dibuixar,foto,grabar;
     private EditText titol,text;
-
+    private boolean edit=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +28,18 @@ public class NotaActivity extends AppCompatActivity {
         guardar=findViewById(R.id.boton_guardar_nota);
         titol = findViewById(R.id.titol_nota);
         text = findViewById(R.id.text_nota);
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null){
+            String titolanterior = (String) bundle.get("titol");
+            String textanterior = (String)bundle.get("text");
+            if(titolanterior!=null){
+                edit=true;
+                titol.setText(titolanterior);
+                text.setText(textanterior);
+
+            }
+
+        }
 
 
         guardar.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +57,9 @@ public class NotaActivity extends AppCompatActivity {
         Intent intent = new Intent( this, PantallaActivity.class);
         if (bundle != null){
             ArrayList<TextNote>  llista = (ArrayList<TextNote>) bundle.getSerializable("nota");
+            if(edit){
+                llista.remove((int)bundle.get("position"));
+            }
             llista.add(new TextNote(titol.getText().toString(), new Date(), text.getText().toString()));
             intent.putExtra("nota",  llista);
         }

@@ -14,12 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.t_note.Model.Note;
 import com.example.t_note.Model.TextNote;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHolder> implements View.OnLongClickListener, View.OnClickListener {
     private List<TextNote> data;
     private LayoutInflater layoutInflater;
     private Context context;
+    private String text,titol;
+    private int position;
 
     public ListAdapterNote(List<TextNote> llista, Context context){
         this.layoutInflater = LayoutInflater.from(context);
@@ -34,6 +37,7 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int ViewType){
         View view= layoutInflater.inflate(R.layout.card_text,null);
+        view.setOnClickListener(this);
         return new ListAdapterNote.ViewHolder(view);
 
     }
@@ -41,8 +45,14 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bindData(data.get(position));
+
+        text=data.get(position).getText();
+        titol=data.get(position).getTittle();
+        this.position=position;
         holder.itemView.setOnLongClickListener(this);
         holder.itemView.setOnClickListener(this);
+
+
     }
 
 
@@ -53,13 +63,16 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
 
     @Override
     public boolean onLongClick(View v) {
-
     return true;
     }
 
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(context,NotaActivity.class);
+        intent.putExtra("titol",titol);
+        intent.putExtra("text",text);
+        intent.putExtra("nota", (Serializable) data);
+        intent.putExtra("position",position);
         context.startActivity(intent);
 
     }
