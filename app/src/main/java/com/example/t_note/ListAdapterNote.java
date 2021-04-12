@@ -23,7 +23,8 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
     private Context context;
     private String text,titol;
     private int position;
-
+    private View.OnClickListener onClickListener;
+    private View.OnLongClickListener onLongClickListener;
     public ListAdapterNote(List<TextNote> llista, Context context){
         this.layoutInflater = LayoutInflater.from(context);
         this.context=context;
@@ -34,10 +35,18 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
         return data.size();
     }
 
+    public void setOnClickListener(View.OnClickListener onClickListener){
+        this.onClickListener = onClickListener;
+    }
+    public void setOnLongClickListener(View.OnLongClickListener onLongClickListener){
+        this.onLongClickListener = onLongClickListener;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int ViewType){
         View view= layoutInflater.inflate(R.layout.card_text,null);
         view.setOnClickListener(this);
+        view.setOnLongClickListener(this);
         return new ListAdapterNote.ViewHolder(view);
 
     }
@@ -45,14 +54,6 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bindData(data.get(position));
-
-        text=data.get(position).getText();
-        titol=data.get(position).getTittle();
-        this.position=position;
-        holder.itemView.setOnLongClickListener(this);
-        holder.itemView.setOnClickListener(this);
-
-
     }
 
 
@@ -63,17 +64,20 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
 
     @Override
     public boolean onLongClick(View v) {
+        if(onLongClickListener!=null){
+            onLongClickListener.onLongClick(v);
+
+        }
     return true;
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(context,NotaActivity.class);
-        intent.putExtra("titol",titol);
-        intent.putExtra("text",text);
-        intent.putExtra("nota", (Serializable) data);
-        intent.putExtra("position",position);
-        context.startActivity(intent);
+
+        if(onClickListener!=null){
+            onClickListener.onClick(v);
+
+        }
 
     }
 

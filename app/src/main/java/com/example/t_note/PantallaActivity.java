@@ -7,14 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.t_note.Model.Note;
 import com.example.t_note.Model.TextNote;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -29,6 +27,8 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
     private RecyclerView rview;
     private List<TextNote> notestext;
     TextNote nota;
+    private int position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +47,7 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
         mensual = this.findViewById(R.id.boton_Mensual);
         anual = this.findViewById(R.id.boton_Anual);
 
+       setunvisible();
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
         notestext = (List<TextNote>) bundle.getSerializable("nota");
@@ -54,15 +55,9 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
         else{
             notestext=new ArrayList<>();
         }
+        recyclerview();
 
 
-
-
-
-        ListAdapterNote listAdapterNote = new ListAdapterNote(notestext,this);
-        rview.setHasFixedSize(true);
-        rview.setLayoutManager(new LinearLayoutManager(this));
-        rview.setAdapter(listAdapterNote);
 
         //Eliminar
         eliminar.setOnClickListener(new View.OnClickListener() {
@@ -73,9 +68,15 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
                         .setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Log.d("MainActivity", "Nota eliminada");
+
                                 Toast.makeText(PantallaActivity.this,"Nota eliminada", Toast.LENGTH_SHORT).show();
-                                //AFEGIR ELIMINAR NOTA
+
+                                if(notestext.get(position)!=null){
+                                    notestext.remove(position);
+                                    recyclerview();
+                                }
+                                setunvisible();
+
                             }
                         })
                         .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -100,6 +101,13 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
         copiar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TextNote element = notestext.get(position);
+                if(element!=null){
+                    notestext.add(element);
+                }
+                recyclerview();
+                setunvisible();
+
 
             }
         });
@@ -146,6 +154,18 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
+    private void setunvisible() {
+        eliminar.setVisibility(View.INVISIBLE);
+        compartir.setVisibility(View.INVISIBLE);
+        copiar.setVisibility(View.INVISIBLE);
+    }
+
+    private void setvisible() {
+        eliminar.setVisibility(View.VISIBLE);
+        compartir.setVisibility(View.VISIBLE);
+        copiar.setVisibility(View.VISIBLE);
+    }
+
     public void goToSettings(){
         Intent intent = new Intent(this,Settings.class);
         startActivity(intent);
@@ -175,6 +195,38 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
             //Anar a la pantalla de creació d'una nota de text
             goToNewNote();
         }
+    }
+
+    void recyclerview(){
+        ListAdapterNote listAdapterNote = new ListAdapterNote(notestext,this);
+        PantallaActivity m = this;
+        listAdapterNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = rview.getChildAdapterPosition(v);
+                Intent intent = new Intent(m,NotaActivity.class);
+                TextNote element = notestext.get(position);
+                intent.putExtra("titol",element.getTittle());
+                intent.putExtra("text",element.getText());
+                intent.putExtra("nota", (Serializable) notestext);
+                intent.putExtra("position",position);
+                startActivity(intent);
+
+            }
+        });
+        listAdapterNote.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                RecyclerView.ViewHolder card = rview.getChildViewHolder(v);
+                position = rview.getChildAdapterPosition(v);
+                setvisible();
+
+                return true;
+            }
+        });
+        rview.setHasFixedSize(true);
+        rview.setLayoutManager(new LinearLayoutManager(this));
+        rview.setAdapter(listAdapterNote);
     }
 
 
