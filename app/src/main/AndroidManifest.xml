@@ -9,10 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TNote">
-        <activity android:name=".NotaActivity"></activity>
-        <activity android:name=".activity_canvi_contrasenya" />
-        <activity android:name=".PantallaActivity" />
-        <activity android:name=".Settings" />
+        <activity android:name=".PantallaActivity"></activity>
         <activity android:name=".RegistrarActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
