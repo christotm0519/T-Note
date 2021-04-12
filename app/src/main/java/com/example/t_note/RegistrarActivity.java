@@ -8,9 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 public class RegistrarActivity extends AppCompatActivity {
 
-    EditText usuari, correo, contrasenya;
+    TextInputLayout layoutUsuari, layoutContrasenya, layoutCorreo;
+    TextInputEditText usuari, correo, contrasenya;
     Button confirmar;
 
     @Override
@@ -19,6 +23,9 @@ public class RegistrarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registrar);
 
         //Enregistrem els components
+        layoutUsuari = this.findViewById(R.id.layoutR_Usuari);
+        layoutContrasenya = this.findViewById(R.id.layoutR_Contrasenya);
+        layoutCorreo = this.findViewById(R.id.layoutR_Correo);
         usuari = this.findViewById(R.id.editR_Usuari);
         correo = this.findViewById(R.id.editR_Correo);
         contrasenya = this.findViewById(R.id.editR_Contrasenya);

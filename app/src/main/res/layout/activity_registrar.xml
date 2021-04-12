@@ -23,47 +23,80 @@
         android:text="REGISTRAR"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-    <EditText
-        android:id="@+id/editR_Usuari"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutR_Usuari"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="left"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:hint="Usuari"
-        android:inputType="textPersonName"/>
-    <EditText
-        android:id="@+id/editR_Correo"
+        app:startIconDrawable="@drawable/account">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editR_Usuari"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutR_Correo"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="left"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:hint="Correo electrònic"
-        android:inputType="textEmailAddress"/>
+        app:startIconDrawable="@drawable/email"
+        android:layout_marginTop="10dp">
 
-    <EditText
-        android:id="@+id/editR_Contrasenya"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editR_Correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutR_Contrasenya"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="left"
-        android:layout_weight="1"
-        android:ems="10"
+        android:layout_height="wrap_content"
         android:hint="Contrasenya"
-        android:inputType="textPassword"/>
+        app:startIconDrawable="@drawable/password"
+        android:layout_marginTop="10dp">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editR_Contrasenya"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/text_Politica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="En fer clic a Registrar-te, acceptes les nostres Condicions i Polítiques de dades."
+        android:layout_marginTop="10dp"/>
     <Button
         android:id="@+id/botonR_Confirmar"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:text="CONFIRMAR"/>
+        android:layout_weight="0.5"
+        android:text="CONFIRMAR"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/text_Error"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>

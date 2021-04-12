@@ -13,9 +13,13 @@ import android.widget.Toast;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 public class MainActivity extends AppCompatActivity{
 
-    EditText usuari, contrasenya;
+    TextInputLayout layoutUsuari, layoutContrasenya;
+    TextInputEditText usuari, contrasenya;
     Button confirmar, forgot,registrar;
 
     @Override
@@ -24,6 +28,8 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         //Enregistrem els components
+        layoutUsuari = this.findViewById(R.id.layoutM_Usuari);
+        layoutContrasenya = this.findViewById(R.id.layoutM_Contrasenya);
         usuari = this.findViewById(R.id.editM_Usuari);
         contrasenya = this.findViewById(R.id.editM_Contrasenya);
         confirmar = this.findViewById(R.id.botonM_Confirmar);

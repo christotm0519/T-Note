@@ -23,24 +23,35 @@
         android:text="INICIAR SESSIÓ"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-    <EditText
-        android:id="@+id/editM_Usuari"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutM_Usuari"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:hint="Usuari"
-        android:inputType="text" />
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-    <EditText
-        android:id="@+id/editM_Contrasenya"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editM_Usuari"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutM_Contrasenya"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:ems="10"
+        android:layout_height="wrap_content"
         android:hint="Contrasenya"
-        android:inputType="textPassword"/>
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editM_Contrasenya"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/botonM_Confirmar"
