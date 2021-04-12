@@ -1,6 +1,7 @@
 package com.example.t_note;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import com.example.t_note.Model.TextNote;
 
 import java.util.List;
 
-public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHolder> {
+public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHolder> implements View.OnLongClickListener, View.OnClickListener {
     private List<TextNote> data;
     private LayoutInflater layoutInflater;
     private Context context;
@@ -40,12 +41,27 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bindData(data.get(position));
+        holder.itemView.setOnLongClickListener(this);
+        holder.itemView.setOnClickListener(this);
     }
 
 
 
     public void setData(List<TextNote> llista){
         data=llista;
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+
+    return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(context,NotaActivity.class);
+        context.startActivity(intent);
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder

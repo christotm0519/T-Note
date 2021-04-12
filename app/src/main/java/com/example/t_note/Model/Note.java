@@ -2,11 +2,14 @@ package com.example.t_note.Model;
 
 import android.provider.ContactsContract;
 
-public class Note {
+import java.io.Serializable;
+import java.util.Date;
+
+public class Note implements Serializable {
     private String tittle;
-    private ContactsContract.Contacts.Data dataCreació;
-   // private int dataCreació;
-    public Note(String tittle, int data /*ContactsContract.Contacts.Data dataCreació*/) {
+    private Date dataCreació;
+
+    public Note(String tittle, Date dataCreació) {
         this.tittle = tittle;
         this.dataCreació = dataCreació;
     }
@@ -19,11 +22,11 @@ public class Note {
         this.tittle = tittle;
     }
 
-    public ContactsContract.Contacts.Data getDataCreació() {
+    public Date getDataCreació() {
         return dataCreació;
     }
 
-    public void setDataCreació(ContactsContract.Contacts.Data dataCreació) {
+    public void setDataCreació(Date dataCreació) {
         this.dataCreació = dataCreació;
     }
 }

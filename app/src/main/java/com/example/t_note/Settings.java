@@ -1,20 +1,15 @@
 package com.example.t_note;
 
-import androidx.annotation.MenuRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.view.Menu;
-import android.view.ContextMenu;
-import 	android.view.MenuInflater;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
-import android.widget.ListPopupWindow;
+
 public class Settings extends AppCompatActivity {
 
 
@@ -30,7 +25,7 @@ public class Settings extends AppCompatActivity {
         findViewById(R.id.nomUsuari);
         tema =findViewById(R.id.tema);
         tancarSessio = this.findViewById(R.id.boton_TancarSessio);
-        tornar= findViewById(R.id.boton_Settings);
+        tornar= findViewById(R.id.boton_guardar_settings);
 
         tornar.setOnClickListener(new View.OnClickListener() {
             @Override

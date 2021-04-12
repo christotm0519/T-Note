@@ -24,12 +24,18 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="63dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:text="                                      Canvi de contrasenya " />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="392dp"
             android:layout_height="35dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
             android:text="Contrasenya actual" />
 
         <EditText
@@ -37,30 +43,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
             android:inputType="textPassword" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:text="Contrasenya nova" />
+            android:text="Contrasenya nova"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"/>
 
         <EditText
             android:id="@+id/editTextTextPassword2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="81dp"
-            android:text="CONFIRMAR" />
+            android:text="CONFIRMAR"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

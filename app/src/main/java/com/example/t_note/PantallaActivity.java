@@ -14,9 +14,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.t_note.Model.Note;
 import com.example.t_note.Model.TextNote;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +28,11 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
     private Button tot, mensual, anual;
     private RecyclerView rview;
     private List<TextNote> notestext;
+    TextNote nota;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla);
-
-
-
 
         //ImatgeButtons
         eliminar = this.findViewById(R.id.boton_Eliminar);
@@ -47,10 +47,18 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
         mensual = this.findViewById(R.id.boton_Mensual);
         anual = this.findViewById(R.id.boton_Anual);
 
-        notestext=new ArrayList<>();
-        notestext.add(new TextNote("Titol1",37,"Hola"));
-        notestext.add(new TextNote("Titol2",37,"q tal"));
-        notestext.add(new TextNote("Titol2",37,"xd"));
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null){
+        notestext = (List<TextNote>) bundle.getSerializable("nota");
+        }
+        else{
+            notestext=new ArrayList<>();
+        }
+
+
+
+
+
         ListAdapterNote listAdapterNote = new ListAdapterNote(notestext,this);
         rview.setHasFixedSize(true);
         rview.setLayoutManager(new LinearLayoutManager(this));
@@ -103,14 +111,15 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
                 goToSettings();
             }
         });
-   /*
+
         //Crear nota
         crearNota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                    goToNewNote();
 
             }
-        });*/
+        });
 
         //Tot
         tot.setOnClickListener(new View.OnClickListener() {
@@ -143,8 +152,9 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void goToNewNote(){
-        //Intent intent = new Intent(this,.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this,NotaActivity.class);
+        intent.putExtra("nota", (Serializable) notestext);
+        startActivity(intent);
     }
 
     public void changeToTot(){

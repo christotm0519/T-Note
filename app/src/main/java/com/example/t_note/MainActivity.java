@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.t_note.Model.TextNote;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -22,11 +23,11 @@ public class MainActivity extends AppCompatActivity{
     TextInputEditText usuari, contrasenya;
     Button confirmar, forgot,registrar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //Enregistrem els components
         layoutUsuari = this.findViewById(R.id.layoutM_Usuari);
         layoutContrasenya = this.findViewById(R.id.layoutM_Contrasenya);
