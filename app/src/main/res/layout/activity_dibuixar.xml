@@ -27,7 +27,7 @@
                 android:layout_width="60dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="5dp"
-                app:srcCompat="@drawable/IconTNote" />
+                app:srcCompat="@drawable/icontnote" />
 
             <ImageButton
                 android:id="@+id/imageButton11"
