@@ -28,6 +28,7 @@ public class NotaActivity extends AppCompatActivity {
         guardar=findViewById(R.id.boton_guardar_nota);
         titol = findViewById(R.id.titol_nota);
         text = findViewById(R.id.text_nota);
+        foto= findViewById(R.id.cam);
         Bundle bundle = getIntent().getExtras();
         if(bundle!=null){
             String titolanterior = (String) bundle.get("titol");
@@ -51,6 +52,20 @@ public class NotaActivity extends AppCompatActivity {
 
             }
         });
+    
+    foto.setOnClickListener(new View.OnClickListener() {
+        //Iniciar pantalla main
+        @Override
+        public void onClick(View v) {
+            gotoCameractivity();
+
+        }
+    });
+}
+
+    private void gotoCameractivity() {
+        Intent intent = new Intent(this,Camera.class);
+        startActivity(intent);
     }
 
     private void gotoPantallaActivity() {

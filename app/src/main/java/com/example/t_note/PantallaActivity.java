@@ -1,6 +1,7 @@
 package com.example.t_note;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -229,8 +230,8 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
                 RecyclerView.ViewHolder card = rview.getChildViewHolder(v);
                 position = rview.getChildAdapterPosition(v);
                 setvisible();
-
                 return true;
+
             }
         });
 

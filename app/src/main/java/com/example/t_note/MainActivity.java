@@ -1,7 +1,9 @@
 package com.example.t_note;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +19,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.net.Authenticator;
+
 public class MainActivity extends AppCompatActivity{
 
     TextInputLayout layoutUsuari, layoutContrasenya;
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 200);
         //Enregistrem els components
         layoutUsuari = this.findViewById(R.id.layoutM_Usuari);
         layoutContrasenya = this.findViewById(R.id.layoutM_Contrasenya);

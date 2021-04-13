@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/icon6"
                 android:layout_width="113dp"
                 android:layout_height="80dp"
@@ -74,8 +74,8 @@
                 android:layout_marginTop="16dp"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
 
-            <ImageView
-                android:id="@+id/icon5"
+            <ImageButton
+                android:id="@+id/cam"
                 android:layout_width="119dp"
                 android:layout_height="88dp"
                 android:layout_marginStart="16dp"
@@ -83,7 +83,7 @@
                 android:layout_marginTop="16dp"
                 app:srcCompat="@android:drawable/ic_menu_camera" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/icon7"
                 android:layout_width="98dp"
                 android:layout_height="79dp"

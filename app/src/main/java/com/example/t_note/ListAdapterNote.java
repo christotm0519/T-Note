@@ -25,6 +25,7 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
     private int position;
     private View.OnClickListener onClickListener;
     private View.OnLongClickListener onLongClickListener;
+
     public ListAdapterNote(List<TextNote> llista, Context context){
         this.layoutInflater = LayoutInflater.from(context);
         this.context=context;
