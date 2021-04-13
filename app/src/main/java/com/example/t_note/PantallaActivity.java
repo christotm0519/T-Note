@@ -25,15 +25,13 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
     private ImageButton eliminar, compartir, copiar,configuracio, crearNota;
     private Button tot, mensual, anual;
     private RecyclerView rview;
-    private List<TextNote> notestext;
-    TextNote nota;
+    private ListAdapterNote listAdapterNote;
     private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla);
-
         //ImatgeButtons
         eliminar = this.findViewById(R.id.boton_Eliminar);
         compartir = this.findViewById(R.id.boton_Compartir);
@@ -41,20 +39,13 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
         configuracio = this.findViewById(R.id.boton_Configuracio);
         crearNota = this.findViewById(R.id.boton_CrearNota);
         rview= findViewById(R.id.recycle);
-
         //Button
         tot = this.findViewById(R.id.boton_Tot);
         mensual = this.findViewById(R.id.boton_Mensual);
         anual = this.findViewById(R.id.boton_Anual);
 
-       setunvisible();
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
-        notestext = (List<TextNote>) bundle.getSerializable("nota");
-        }
-        else{
-            notestext=new ArrayList<>();
-        }
+        setunvisible();
+
         recyclerview();
 
 
@@ -70,11 +61,8 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
                             public void onClick(DialogInterface dialog, int which) {
 
                                 Toast.makeText(PantallaActivity.this,"Nota eliminada", Toast.LENGTH_SHORT).show();
-
-                                if(notestext.get(position)!=null){
-                                    notestext.remove(position);
-                                    recyclerview();
-                                }
+                                ListAdapterNote adapterNote= (ListAdapterNote) rview.getAdapter();
+                                adapterNote.remove(position);
                                 setunvisible();
 
                             }
@@ -101,11 +89,10 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
         copiar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextNote element = notestext.get(position);
+                TextNote element = listAdapterNote.getItem(position);
                 if(element!=null){
-                    notestext.add(element);
+                    listAdapterNote.add(element);
                 }
-                recyclerview();
                 setunvisible();
 
 
@@ -172,8 +159,9 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void goToNewNote(){
+
         Intent intent = new Intent(this,NotaActivity.class);
-        intent.putExtra("nota", (Serializable) notestext);
+        intent.putExtra("Adapter", (Serializable) listAdapterNote.getdata());
         startActivity(intent);
     }
 
@@ -198,23 +186,44 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
     }
 
     void recyclerview(){
-        ListAdapterNote listAdapterNote = new ListAdapterNote(notestext,this);
+
+        listAdapterNote = new ListAdapterNote(new ArrayList<TextNote>(),this);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null){
+            List<TextNote> adapterNote= (List<TextNote>) bundle.get("Adapter");
+            if(adapterNote!=null){
+                TextNote NewNote = (TextNote) bundle.getSerializable("NewNote");
+                listAdapterNote.setData(adapterNote);
+                if((boolean) bundle.get("edit")){
+                    position= (int) bundle.get("position");
+                    listAdapterNote.replace(position,NewNote);
+
+                }
+                else {
+                    listAdapterNote.add(NewNote);
+                }
+            }
+
+
+
+
+        }
         PantallaActivity m = this;
         listAdapterNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = rview.getChildAdapterPosition(v);
                 Intent intent = new Intent(m,NotaActivity.class);
-                TextNote element = notestext.get(position);
+                TextNote element = listAdapterNote.getItem(position);
                 intent.putExtra("titol",element.getTittle());
                 intent.putExtra("text",element.getText());
-                intent.putExtra("nota", (Serializable) notestext);
                 intent.putExtra("position",position);
+                intent.putExtra("Adapter", (Serializable) listAdapterNote.getdata());
                 startActivity(intent);
 
             }
         });
-        listAdapterNote.setOnLongClickListener(new View.OnLongClickListener() {
+            listAdapterNote.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 RecyclerView.ViewHolder card = rview.getChildViewHolder(v);
@@ -224,6 +233,7 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
                 return true;
             }
         });
+
         rview.setHasFixedSize(true);
         rview.setLayoutManager(new LinearLayoutManager(this));
         rview.setAdapter(listAdapterNote);

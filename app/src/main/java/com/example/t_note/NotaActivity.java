@@ -37,6 +37,7 @@ public class NotaActivity extends AppCompatActivity {
                 titol.setText(titolanterior);
                 text.setText(textanterior);
 
+
             }
 
         }
@@ -55,19 +56,15 @@ public class NotaActivity extends AppCompatActivity {
     private void gotoPantallaActivity() {
         Bundle bundle = getIntent().getExtras();
         Intent intent = new Intent( this, PantallaActivity.class);
-        if (bundle != null){
-            ArrayList<TextNote>  llista = (ArrayList<TextNote>) bundle.getSerializable("nota");
+        intent.putExtra("edit",edit);
+        if(bundle!=null){
+            List<TextNote> listAdapterNote= (List<TextNote>) bundle.getSerializable("Adapter");
+            intent.putExtra("Adapter", (Serializable) listAdapterNote);
             if(edit){
-                llista.remove((int)bundle.get("position"));
+                intent.putExtra("position", (Integer) bundle.get("position"));
             }
-            llista.add(new TextNote(titol.getText().toString(), new Date(), text.getText().toString()));
-            intent.putExtra("nota",  llista);
         }
-
-
-
-
-
+        intent.putExtra("NewNote",new TextNote(titol.getText().toString(), new Date(), text.getText().toString()));
         startActivity(intent);
     }
 }

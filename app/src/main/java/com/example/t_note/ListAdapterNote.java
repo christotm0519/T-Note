@@ -53,7 +53,7 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bindData(data.get(position));
+        holder.bindData(getItem(position));
     }
 
 
@@ -79,7 +79,29 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
 
         }
 
+
     }
+    public void remove(int pos){
+        data.remove(pos);
+        notifyItemRemoved(pos);
+    }
+    public TextNote getItem(int pos){
+        return(data.get(pos));
+    }
+
+    public void add(TextNote element) {
+        data.add(element);
+        notifyDataSetChanged();
+    }
+
+    public List<TextNote> getdata() {
+        return data;
+    }
+    public void replace(int pos,TextNote note){
+        data.set(pos,note);
+        notifyItemChanged(pos);
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
@@ -94,5 +116,8 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
             titol.setText(nota.getTittle());
             text.setText(nota.getText());
         }
+
+
+
     }
 }
