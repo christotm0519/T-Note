@@ -23,7 +23,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PantallaActivity extends AppCompatActivity implements View.OnClickListener{
+public class PantallaActivity extends AppCompatActivity{
 
     private ImageButton eliminar, compartir, copiar,configuracio, crearNota;
     private Button tot, mensual, anual;
@@ -46,7 +46,9 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
         tot = this.findViewById(R.id.boton_Tot);
         mensual = this.findViewById(R.id.boton_Mensual);
         anual = this.findViewById(R.id.boton_Anual);
+        System.out.println("11111");
         setunvisible();
+        System.out.println("22222");
         recyclerview();
 
         //Eliminar
@@ -111,7 +113,6 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onClick(View v) {
                     goToNewNote();
-
             }
         });
 
@@ -158,11 +159,12 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void goToNewNote(){
-
+        //Intent intent = new Intent(this,Camera.class);//prova
         Intent intent = new Intent(this,NotaActivity.class);
-        intent.putExtra("Adapter", (Serializable) listAdapterNote.getdata());
+        intent.putExtra("list", (Serializable) listAdapterNote.getdata());
         startActivity(intent);
     }
+
 
     public void changeToTot(){
         //Canviar finestra RecyclerView per mostrar tot en ordre
@@ -176,34 +178,30 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
         //Canviar finestra RecyclerView per mostrar tot en ordre anual
     }
 
-    @Override
-    public void onClick(View v) {
-        if(R.id.boton_CrearNota == v.getId()){
-            //Anar a la pantalla de creació d'una nota de text
-            goToNewNote();
-        }
-    }
+
 
     void recyclerview(){
         listAdapterNote = new ListAdapterNote(new ArrayList<Note>(),this);
         System.out.println("RRRR");
         Bundle bundle = getIntent().getExtras();
+        System.out.println("AAAAA");
         if (bundle != null){
             System.out.println("EEEEE");
-            List<Note> adapterNote= (List<Note>) bundle.get("Adapter");
+            List<Note> adapterNote= (List<Note>) bundle.get("list");
             Note note = (Note) bundle.getSerializable("NewNote");
             if(note!=null) {
                 if (note instanceof TextNote) {
-
                     TextNote NewNote = (TextNote) bundle.getSerializable("NewNote");
                     listAdapterNote.setData(adapterNote);
-                    if ((boolean) bundle.get("edit")) {
-                        position = (int) bundle.get("position");
-                        listAdapterNote.replace(position, NewNote);
 
-                    } else {
+                    if (bundle.get("edit")== null || !(boolean)bundle.get("edit")){
                         listAdapterNote.add(NewNote);
                     }
+                    else{
+                        position = (int) bundle.get("position");
+                        listAdapterNote.replace(position, NewNote);
+                    }
+
                 } else if(note instanceof ImageNote){
                     listAdapterNote.add(note);
 
@@ -224,7 +222,7 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
                 intent.putExtra("titol",element.getTittle());
                 intent.putExtra("text",element.getText());
                 intent.putExtra("position",position);
-                intent.putExtra("Adapter", (Serializable) listAdapterNote.getdata());
+                intent.putExtra("list", (Serializable) listAdapterNote.getdata());
                 startActivity(intent);
 
             }

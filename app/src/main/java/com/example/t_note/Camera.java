@@ -62,13 +62,15 @@ public class Camera extends AppCompatActivity {
     }
 
     private void gotopantalla() {
-        Intent intent = new Intent(this,PantallaActivity.class);
 
-        intent.putExtra("foto",foto);
         Bundle bundle = getIntent().getExtras();
-        List<Note> listAdapterNote= (List<Note>) bundle.getSerializable("Adapter");
-        intent.putExtra("Adapter", (Serializable) listAdapterNote);
-        intent.putExtra("NewNote",new ImageNote("TITOL", new Date(),foto));
+        Intent intent = new Intent( this, PantallaActivity.class);
+        if(bundle!=null){
+            List<Note> listAdapterNote= (List<Note>) bundle.getSerializable("list");
+            intent.putExtra("list", (Serializable) listAdapterNote);
+        }
+        intent.putExtra("NewNote",new TextNote("TITOL", new Date(), "hola"));//prova
+        //intent.putExtra("NewNote",new ImageNote("TITOL", new Date(), foto));
         startActivity(intent);
     }
 
