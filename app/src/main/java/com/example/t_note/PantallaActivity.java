@@ -44,12 +44,8 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
         tot = this.findViewById(R.id.boton_Tot);
         mensual = this.findViewById(R.id.boton_Mensual);
         anual = this.findViewById(R.id.boton_Anual);
-
         setunvisible();
-
         recyclerview();
-
-
 
         //Eliminar
         eliminar.setOnClickListener(new View.OnClickListener() {
@@ -229,6 +225,7 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
             public boolean onLongClick(View v) {
                 RecyclerView.ViewHolder card = rview.getChildViewHolder(v);
                 position = rview.getChildAdapterPosition(v);
+
                 setvisible();
                 return true;
 

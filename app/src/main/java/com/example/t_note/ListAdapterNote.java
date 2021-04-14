@@ -45,6 +45,7 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int ViewType){
+
         View view= layoutInflater.inflate(R.layout.card_text,null);
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);
