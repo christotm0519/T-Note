@@ -7,11 +7,11 @@ import java.util.Date;
 
 public class Note implements Serializable {
     private String tittle;
-    private Date dataCreació;
+    private Date dataCreacio;
 
-    public Note(String tittle, Date dataCreació) {
+    public Note(String tittle, Date dataCreacio) {
         this.tittle = tittle;
-        this.dataCreació = dataCreació;
+        this.dataCreacio = dataCreacio;
     }
 
     public String getTittle() {
@@ -22,11 +22,11 @@ public class Note implements Serializable {
         this.tittle = tittle;
     }
 
-    public Date getDataCreació() {
-        return dataCreació;
+    public Date getDataCreacio() {
+        return dataCreacio;
     }
 
-    public void setDataCreació(Date dataCreació) {
-        this.dataCreació = dataCreació;
+    public void setDataCreacio(Date dataCreacio) {
+        this.dataCreacio = dataCreacio;
     }
 }
