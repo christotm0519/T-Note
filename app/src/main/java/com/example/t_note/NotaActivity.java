@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.t_note.Model.Note;
 import com.example.t_note.Model.TextNote;
 
 import java.io.Serializable;
@@ -73,7 +74,7 @@ public class NotaActivity extends AppCompatActivity {
         Intent intent = new Intent( this, PantallaActivity.class);
         intent.putExtra("edit",edit);
         if(bundle!=null){
-            List<TextNote> listAdapterNote= (List<TextNote>) bundle.getSerializable("Adapter");
+            List<Note> listAdapterNote= (List<Note>) bundle.getSerializable("Adapter");
             intent.putExtra("Adapter", (Serializable) listAdapterNote);
             if(edit){
                 intent.putExtra("position", (Integer) bundle.get("position"));

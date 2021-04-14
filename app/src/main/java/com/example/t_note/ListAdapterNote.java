@@ -11,14 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.t_note.Model.ImageNote;
 import com.example.t_note.Model.Note;
 import com.example.t_note.Model.TextNote;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHolder> implements View.OnLongClickListener, View.OnClickListener {
-    private List<TextNote> data;
+public class ListAdapterNote extends RecyclerView.Adapter implements View.OnLongClickListener, View.OnClickListener {
+    private List<Note> data;
     private LayoutInflater layoutInflater;
     private Context context;
     private String text,titol;
@@ -26,11 +27,27 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
     private View.OnClickListener onClickListener;
     private View.OnLongClickListener onLongClickListener;
 
-    public ListAdapterNote(List<TextNote> llista, Context context){
+    public ListAdapterNote(List<Note> llista, Context context){
         this.layoutInflater = LayoutInflater.from(context);
         this.context=context;
         this.data=llista;
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        Note element= data.get(position);
+        if(element instanceof TextNote){
+            return 0;
+
+        }
+        else if(element instanceof ImageNote){
+            return 1;
+        }
+        else{
+            return 2;
+        }
+    }
+
     @Override
     public int getItemCount(){
         return data.size();
@@ -44,23 +61,45 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int ViewType){
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int ViewType){
 
-        View view= layoutInflater.inflate(R.layout.card_text,null);
-        view.setOnClickListener(this);
-        view.setOnLongClickListener(this);
-        return new ListAdapterNote.ViewHolder(view);
+        if(ViewType==0){
+            View view= layoutInflater.inflate(R.layout.card_text,null);
+            view.setOnClickListener(this);
+            view.setOnLongClickListener(this);
+            return new ListAdapterNote.ViewHolder0(view);
+        }
+        else if(ViewType==1){
+            View view= layoutInflater.inflate(R.layout.card_imatge,null);
+            view.setOnClickListener(this);
+            view.setOnLongClickListener(this);
+            return new ListAdapterNote.ViewHolder1(view);
+        }
 
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bindData(getItem(position));
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Note element= data.get(position);
+        if(element instanceof TextNote) {
+            ViewHolder0 holder0 = (ViewHolder0) holder;
+            holder0.bindData((TextNote) data.get(position));
+
+        }
+        else if(element instanceof ImageNote){
+            ViewHolder1 holder1 = (ViewHolder1) holder;
+            holder1.bindData((ImageNote) data.get(position));
+
+        }
+
+
+
+
     }
 
 
-
-    public void setData(List<TextNote> llista){
+        public void setData(List<Note> llista){
         data=llista;
     }
 
@@ -88,7 +127,7 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
         notifyItemRemoved(pos);
     }
     public TextNote getItem(int pos){
-        return(data.get(pos));
+        return (TextNote) data.get(pos);
     }
 
     public void add(TextNote element) {
@@ -96,7 +135,7 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
         notifyDataSetChanged();
     }
 
-    public List<TextNote> getdata() {
+    public List<Note> getdata() {
         return data;
     }
     public void replace(int pos,TextNote note){
@@ -105,11 +144,11 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder
+    public class ViewHolder0 extends RecyclerView.ViewHolder
     {
         TextView titol,text;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder0(@NonNull View itemView) {
             super(itemView);
             titol=itemView.findViewById(R.id.titol);
             text=itemView.findViewById(R.id.text);
@@ -118,8 +157,21 @@ public class ListAdapterNote extends RecyclerView.Adapter<ListAdapterNote.ViewHo
             titol.setText(nota.getTittle());
             text.setText(nota.getText());
         }
+    }
 
+    public class ViewHolder1 extends RecyclerView.ViewHolder
+    {
+        TextView titol,text;
+        ImageNote imageNote;
 
-
+        public ViewHolder1(@NonNull View itemView) {
+            super(itemView);
+            titol=itemView.findViewById(R.id.titol);
+            text=itemView.findViewById(R.id.text);
+        }
+        void bindData(final ImageNote nota){
+            titol.setText(nota.getTittle());
+            imageNote.setImatge(nota.getImatge());
+        }
     }
 }
