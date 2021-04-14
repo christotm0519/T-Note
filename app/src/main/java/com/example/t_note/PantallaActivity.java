@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.t_note.Model.ImageNote;
 import com.example.t_note.Model.Note;
 import com.example.t_note.Model.TextNote;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -184,21 +185,28 @@ public class PantallaActivity extends AppCompatActivity implements View.OnClickL
     }
 
     void recyclerview(){
-
         listAdapterNote = new ListAdapterNote(new ArrayList<Note>(),this);
+        System.out.println("RRRR");
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
+            System.out.println("EEEEE");
             List<Note> adapterNote= (List<Note>) bundle.get("Adapter");
-            if(adapterNote!=null){
-                TextNote NewNote = (TextNote) bundle.getSerializable("NewNote");
-                listAdapterNote.setData(adapterNote);
-                if((boolean) bundle.get("edit")){
-                    position= (int) bundle.get("position");
-                    listAdapterNote.replace(position,NewNote);
+            Note note = (Note) bundle.getSerializable("NewNote");
+            if(note!=null) {
+                if (note instanceof TextNote) {
 
-                }
-                else {
-                    listAdapterNote.add(NewNote);
+                    TextNote NewNote = (TextNote) bundle.getSerializable("NewNote");
+                    listAdapterNote.setData(adapterNote);
+                    if ((boolean) bundle.get("edit")) {
+                        position = (int) bundle.get("position");
+                        listAdapterNote.replace(position, NewNote);
+
+                    } else {
+                        listAdapterNote.add(NewNote);
+                    }
+                } else if(note instanceof ImageNote){
+                    listAdapterNote.add(note);
+
                 }
             }
 

@@ -1,11 +1,10 @@
 package com.example.t_note;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +14,6 @@ import com.example.t_note.Model.ImageNote;
 import com.example.t_note.Model.Note;
 import com.example.t_note.Model.TextNote;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class ListAdapterNote extends RecyclerView.Adapter implements View.OnLongClickListener, View.OnClickListener {
@@ -130,7 +128,7 @@ public class ListAdapterNote extends RecyclerView.Adapter implements View.OnLong
         return (TextNote) data.get(pos);
     }
 
-    public void add(TextNote element) {
+    public void add(Note element) {
         data.add(element);
         notifyDataSetChanged();
     }
@@ -161,17 +159,17 @@ public class ListAdapterNote extends RecyclerView.Adapter implements View.OnLong
 
     public class ViewHolder1 extends RecyclerView.ViewHolder
     {
-        TextView titol,text;
-        ImageNote imageNote;
+        TextView titol;
+        ImageView imatge;
 
         public ViewHolder1(@NonNull View itemView) {
             super(itemView);
             titol=itemView.findViewById(R.id.titol);
-            text=itemView.findViewById(R.id.text);
+            imatge=itemView.findViewById(R.id.imageView);
         }
         void bindData(final ImageNote nota){
             titol.setText(nota.getTittle());
-            imageNote.setImatge(nota.getImatge());
+            nota.setImatge(nota.getImatge());
         }
     }
 }

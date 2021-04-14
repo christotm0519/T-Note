@@ -65,7 +65,10 @@ public class NotaActivity extends AppCompatActivity {
 }
 
     private void gotoCameractivity() {
+        Bundle bundle = getIntent().getExtras();
         Intent intent = new Intent(this,Camera.class);
+        List<Note> listAdapterNote= (List<Note>) bundle.getSerializable("Adapter");
+        intent.putExtra("Adapter", (Serializable) listAdapterNote);
         startActivity(intent);
     }
 

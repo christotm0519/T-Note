@@ -15,6 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.t_note.Model.ImageNote;
+import com.example.t_note.Model.Note;
+import com.example.t_note.Model.TextNote;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
 public class Camera extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     // Requesting permission to use CAMERA
@@ -54,8 +62,13 @@ public class Camera extends AppCompatActivity {
     }
 
     private void gotopantalla() {
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this,PantallaActivity.class);
+
         intent.putExtra("foto",foto);
+        Bundle bundle = getIntent().getExtras();
+        List<Note> listAdapterNote= (List<Note>) bundle.getSerializable("Adapter");
+        intent.putExtra("Adapter", (Serializable) listAdapterNote);
+        intent.putExtra("NewNote",new ImageNote("TITOL", new Date(),foto));
         startActivity(intent);
     }
 
