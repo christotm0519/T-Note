@@ -18,7 +18,7 @@
             android:id="@+id/foto_card"
             android:layout_width="match_parent"
             android:layout_height="194dp"
-            app:srcCompat="@drawable/baseline_share_black_18dp"
+
             android:scaleType="centerCrop"
 
             />
@@ -36,14 +36,6 @@
                 android:layout_height="wrap_content"
                 android:text="titol"
                 android:textAppearance="?attr/textAppearanceHeadline6" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="descripció"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary" />
 
         </LinearLayout>
 

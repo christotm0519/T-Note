@@ -47,9 +47,7 @@ public class PantallaActivity extends AppCompatActivity{
         tot = this.findViewById(R.id.boton_Tot);
         mensual = this.findViewById(R.id.boton_Mensual);
         anual = this.findViewById(R.id.boton_Anual);
-        System.out.println("11111");
         setunvisible();
-        System.out.println("22222");
         recyclerview();
 
         //Eliminar
@@ -91,7 +89,7 @@ public class PantallaActivity extends AppCompatActivity{
         copiar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextNote element = listAdapterNote.getItem(position);
+                Note element = listAdapterNote.getItem(position);
                 if(element!=null){
                     listAdapterNote.add(element);
                 }
@@ -183,11 +181,8 @@ public class PantallaActivity extends AppCompatActivity{
 
     void recyclerview(){
         listAdapterNote = new ListAdapterNote(new ArrayList<Note>(),this);
-        System.out.println("RRRR");
         Bundle bundle = getIntent().getExtras();
-        System.out.println("AAAAA");
         if (bundle != null){
-            System.out.println("EEEEE");
             List<Note> adapterNote= (List<Note>) bundle.get("list");
             Note note = (Note) bundle.getSerializable("NewNote");
             if(note!=null) {
@@ -205,8 +200,6 @@ public class PantallaActivity extends AppCompatActivity{
 
                 } else if(note instanceof ImageNote){
                     ((ImageNote) note).setImatge((Bitmap) bundle.get("imatge"));
-                    System.out.println("VAAAAA");
-                    System.out.println(((ImageNote) note).getImatge());
                     listAdapterNote.add(note);
 
                 }
@@ -221,13 +214,25 @@ public class PantallaActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 int position = rview.getChildAdapterPosition(v);
-                Intent intent = new Intent(m,NotaActivity.class);
-                TextNote element = listAdapterNote.getItem(position);
-                intent.putExtra("titol",element.getTittle());
-                intent.putExtra("text",element.getText());
-                intent.putExtra("position",position);
-                intent.putExtra("list", (Serializable) listAdapterNote.getdata());
-                startActivity(intent);
+
+                Note element =  listAdapterNote.getItem(position);
+                if(element instanceof TextNote){
+                    Intent intent = new Intent(m,NotaActivity.class);
+                    intent.putExtra("titol",element.getTittle());
+                    intent.putExtra("text", ((TextNote) element).getText());
+                    intent.putExtra("position",position);
+                    intent.putExtra("list", (Serializable) listAdapterNote.getdata());
+                    startActivity(intent);
+                }
+                else if(element instanceof ImageNote){
+                    Intent intent = new Intent(m,Camera.class);
+                    intent.putExtra("titol",element.getTittle());
+                    intent.putExtra("Imatge", ((ImageNote) element).getImatge());
+                    intent.putExtra("position",position);
+                    intent.putExtra("list", (Serializable) listAdapterNote.getdata());
+                    startActivity(intent);
+                }
+
 
             }
         });

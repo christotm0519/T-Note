@@ -125,8 +125,8 @@ public class ListAdapterNote extends RecyclerView.Adapter implements View.OnLong
         data.remove(pos);
         notifyItemRemoved(pos);
     }
-    public TextNote getItem(int pos){
-        return (TextNote) data.get(pos);
+    public Note getItem(int pos){
+        return  data.get(pos);
     }
 
     public void add(Note element) {

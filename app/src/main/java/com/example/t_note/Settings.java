@@ -57,7 +57,6 @@ public class Settings extends AppCompatActivity {
                 popup.getMenuInflater().inflate(R.menu.menu, popup.getMenu());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        System.out.println(item.getItemId());
                         if(item.getTitle().equals("predeterminat")){
                             setTheme(R.style.AppTheme);
 

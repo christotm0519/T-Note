@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -30,11 +31,13 @@ public class Camera extends AppCompatActivity {
     private boolean permissionToUseCameraAccepted = false;
     private final String[] permissions = {Manifest.permission.CAMERA};
     private static final int REQUEST_CAMERA_PERMISSION = 200;
+    private boolean edit=false;
 
     Button cam;
     ImageView imatge;
     ImageButton guardar;
     private Bitmap foto;
+    private EditText titol;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,19 @@ public class Camera extends AppCompatActivity {
         imatge = findViewById(R.id.imageView);
         cam = findViewById(R.id.btnCamara);
         guardar = findViewById(R.id.boton_guardar_imatge);
+        titol= findViewById(R.id.titol_imatge);
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null) {
+            String titolanterior = (String) bundle.get("titol");
+            Bitmap imatgeanterior = (Bitmap) bundle.get("text");
+            if (titolanterior != null) {
+                edit = true;
+                titol.setText(titolanterior);
+                imatge.setImageBitmap(imatgeanterior);
+
+
+            }
+        }
 
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +85,11 @@ public class Camera extends AppCompatActivity {
         if(bundle!=null){
             List<Note> listAdapterNote= (List<Note>) bundle.getSerializable("list");
             intent.putExtra("list", (Serializable) listAdapterNote);
+            if(edit){
+                intent.putExtra("position", (Integer) bundle.get("position"));
+            }
         }
-        ImageNote imageNote = new ImageNote("TITOL", new Date());
+        ImageNote imageNote = new ImageNote(titol.getText().toString(), new Date());
         intent.putExtra("imatge",foto);
         intent.putExtra("NewNote",imageNote);
         startActivity(intent);
