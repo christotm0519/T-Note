@@ -25,6 +25,8 @@ public class NotaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nota);
+        dibuixar=findViewById(R.id.icon6);
+        grabar=findViewById(R.id.icon7);
         guardar=findViewById(R.id.boton_guardar_nota);
         titol = findViewById(R.id.titol_nota);
         text = findViewById(R.id.text_nota);
@@ -61,6 +63,22 @@ public class NotaActivity extends AppCompatActivity {
 
         }
     });
+        grabar.setOnClickListener(new View.OnClickListener() {
+            //Iniciar pantalla main
+            @Override
+            public void onClick(View v) {
+                gotoGrabadoraactivity();
+
+            }
+        });
+        dibuixar.setOnClickListener(new View.OnClickListener() {
+            //Iniciar pantalla main
+            @Override
+            public void onClick(View v) {
+                gotoDibuixaractivity();
+
+            }
+        });
 }
 
     private void gotoCameractivity() {
@@ -68,6 +86,18 @@ public class NotaActivity extends AppCompatActivity {
         Intent intent = new Intent(this,Camera.class);
         List<Note> listAdapterNote= (List<Note>) bundle.getSerializable("list");
         intent.putExtra("list", (Serializable) listAdapterNote);
+        startActivity(intent);
+    }
+    private void gotoDibuixaractivity() {
+        Bundle bundle = getIntent().getExtras();
+        Intent intent = new Intent(this,DibuixarActivity.class);
+        List<Note> listAdapterNote= (List<Note>) bundle.getSerializable("list");
+        intent.putExtra("list", (Serializable) listAdapterNote);
+        startActivity(intent);
+    }
+
+    private void gotoGrabadoraactivity() {
+        Intent intent = new Intent(this,GrabadoraActivity.class);
         startActivity(intent);
     }
 

@@ -10,6 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TNote">
         <activity android:name=".Camera"></activity>
+        <activity android:name=".DibuixarActivity"></activity>
+        <activity android:name=".GrabadoraActivity"></activity>
         <activity android:name=".NotaActivity"></activity>
         <activity android:name=".activity_canvi_contrasenya" />
         <activity android:name=".PantallaActivity" />
@@ -31,6 +33,6 @@
     </application>
     <uses-feature android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.CAMERA"/>
-
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
 </manifest>
