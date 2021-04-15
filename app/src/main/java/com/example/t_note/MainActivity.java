@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.t_note.Model.IniciarRegistrarViewModel;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity{
     TextInputLayout layoutUsuari, layoutContrasenya;
     TextInputEditText usuari, contrasenya;
     Button confirmar, forgot,registrar;
+    TextView textError;
 
     private IniciarRegistrarViewModel viewModel;
 
@@ -49,7 +51,9 @@ public class MainActivity extends AppCompatActivity{
         confirmar = this.findViewById(R.id.botonM_Confirmar);
         forgot = this.findViewById(R.id.botonM_ForgotPassword);
         registrar = this.findViewById(R.id.botonM_Registrarse);
+        textError = this.findViewById(R.id.textM_Error);
 
+        //ViewModel
         viewModel = new ViewModelProvider(this).get(IniciarRegistrarViewModel.class);
 
         confirmar.setOnClickListener(new View.OnClickListener() {
@@ -106,16 +110,36 @@ public class MainActivity extends AppCompatActivity{
         EditText password = (EditText) contrasenya;
         if(viewModel.canLog(name.getText().toString(),password.getText().toString())){
             gotToPantallaActivity();
+            usuari.setText("");
+            contrasenya.setText("");
+        }else{
+            option(2);
         }
-
-        //Netejem els camps
-        usuari.setText("");
-        contrasenya.setText("");
     }
 
     public void gotToPantallaActivity(){
         Intent intent = new Intent( this, PantallaActivity.class);
         startActivity(intent);
 
+    }
+
+    public void option(int index){
+        switch (index){
+            case 1: //Contrasenya incorrecta
+                textError.setText("Contrasenya incorrecta!");
+                contrasenya.setText("");
+                break;
+            case 2: //Dades buides
+                textError.setText("Falten dades!");
+                usuari.setText("");
+                contrasenya.setText("");
+                break;
+            case 3: //Dades incorrectes
+                usuari.setText("");
+                contrasenya.setText("");
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -92,7 +92,7 @@
         android:layout_marginTop="10dp"/>
 
     <TextView
-        android:id="@+id/text_Error"
+        android:id="@+id/textR_Error"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"

@@ -21,6 +21,7 @@ import com.example.t_note.Model.Note;
 import com.example.t_note.Model.PantallaViewModel;
 import com.example.t_note.Model.TextNote;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +29,8 @@ import java.util.List;
 
 public class PantallaActivity extends AppCompatActivity{
 
-    private ImageButton eliminar, compartir, copiar,configuracio, crearNota;
+    private ImageButton eliminar, compartir, copiar,configuracio;
+    private ExtendedFloatingActionButton crearNota;
     private Button tot, mensual, anual;
     private RecyclerView rview;
     private ListAdapterNote listAdapterNote;
