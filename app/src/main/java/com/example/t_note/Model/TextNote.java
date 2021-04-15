@@ -5,7 +5,7 @@ import android.provider.ContactsContract;
 import java.io.Serializable;
 import java.util.Date;
 
-public class TextNote extends Note implements Serializable {
+public class TextNote extends Note{
     private String text;
 
 

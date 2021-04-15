@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.t_note.Model.DrawNote;
 import com.example.t_note.Model.ImageNote;
 import com.example.t_note.Model.Note;
 import com.example.t_note.Model.TextNote;
@@ -69,8 +70,9 @@ public class Camera extends AppCompatActivity {
             List<Note> listAdapterNote= (List<Note>) bundle.getSerializable("list");
             intent.putExtra("list", (Serializable) listAdapterNote);
         }
-        intent.putExtra("NewNote",new TextNote("TITOL", new Date(), "hola"));//prova
-        //intent.putExtra("NewNote",new ImageNote("TITOL", new Date(), foto));
+        ImageNote imageNote = new ImageNote("TITOL", new Date());
+        intent.putExtra("imatge",foto);
+        intent.putExtra("NewNote",imageNote);
         startActivity(intent);
     }
 

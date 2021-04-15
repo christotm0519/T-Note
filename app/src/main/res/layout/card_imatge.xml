@@ -15,11 +15,12 @@
 
         <!-- Media -->
         <ImageView
+            android:id="@+id/foto_card"
             android:layout_width="match_parent"
             android:layout_height="194dp"
             app:srcCompat="@drawable/baseline_share_black_18dp"
             android:scaleType="centerCrop"
-            android:contentDescription="@string/content_description_media"
+
             />
 
         <LinearLayout
@@ -30,6 +31,7 @@
 
             <!-- Title, secondary and supporting text -->
             <TextView
+                android:id="@+id/titol_imatge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="titol"

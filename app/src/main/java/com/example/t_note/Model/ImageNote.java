@@ -6,10 +6,12 @@ import android.provider.ContactsContract;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ImageNote extends Note implements Serializable {
+public class ImageNote extends Note{
     private Bitmap imatge;
 
-
+    public ImageNote(String tittle,/* ContactsContract.Contacts.Data dataCreació*/ Date dataCreació) {
+        super(tittle, dataCreació);;
+    }
     public ImageNote(String tittle,/* ContactsContract.Contacts.Data dataCreació*/ Date dataCreació, Bitmap imatge) {
         super(tittle, dataCreació);
         this.imatge=imatge;

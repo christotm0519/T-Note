@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -203,6 +204,9 @@ public class PantallaActivity extends AppCompatActivity{
                     }
 
                 } else if(note instanceof ImageNote){
+                    ((ImageNote) note).setImatge((Bitmap) bundle.get("imatge"));
+                    System.out.println("VAAAAA");
+                    System.out.println(((ImageNote) note).getImatge());
                     listAdapterNote.add(note);
 
                 }

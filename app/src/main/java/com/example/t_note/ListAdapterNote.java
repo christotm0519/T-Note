@@ -14,6 +14,7 @@ import com.example.t_note.Model.ImageNote;
 import com.example.t_note.Model.Note;
 import com.example.t_note.Model.TextNote;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 public class ListAdapterNote extends RecyclerView.Adapter implements View.OnLongClickListener, View.OnClickListener {
@@ -164,12 +165,12 @@ public class ListAdapterNote extends RecyclerView.Adapter implements View.OnLong
 
         public ViewHolder1(@NonNull View itemView) {
             super(itemView);
-            titol=itemView.findViewById(R.id.titol);
-            imatge=itemView.findViewById(R.id.imageView);
+            titol=itemView.findViewById(R.id.titol_imatge);
+            imatge=itemView.findViewById(R.id.foto_card);
         }
         void bindData(final ImageNote nota){
             titol.setText(nota.getTittle());
-            nota.setImatge(nota.getImatge());
+            imatge.setImageBitmap(nota.getImatge());
         }
     }
 }
