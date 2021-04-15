@@ -2,6 +2,8 @@ package com.example.t_note;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -13,13 +15,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.t_note.Model.IniciarRegistrarViewModel;
 import com.example.t_note.Model.TextNote;
+import com.example.t_note.Model.Users;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.Serializable;
 import java.net.Authenticator;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -27,6 +34,7 @@ public class MainActivity extends AppCompatActivity{
     TextInputEditText usuari, contrasenya;
     Button confirmar, forgot,registrar;
 
+    private IniciarRegistrarViewModel viewModel;
 
 
     @Override
@@ -42,12 +50,13 @@ public class MainActivity extends AppCompatActivity{
         forgot = this.findViewById(R.id.botonM_ForgotPassword);
         registrar = this.findViewById(R.id.botonM_Registrarse);
 
+        viewModel = new ViewModelProvider(this).get(IniciarRegistrarViewModel.class);
 
         confirmar.setOnClickListener(new View.OnClickListener() {
             //Iniciar pantalla main
             @Override
             public void onClick(View v) {
-                gotoPantallaActivity();
+                logIn();
             }
         });
 
@@ -81,6 +90,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void gotToRegistrar(){
         Intent intent = new Intent(this,RegistrarActivity.class);
+        //intent.putExtra("viewModel", (Serializable) viewModel);
         startActivity(intent);
     }
 
@@ -89,11 +99,21 @@ public class MainActivity extends AppCompatActivity{
         //startActivity(intent);
     }
 
-    public void goToLogin(){
-        //Intent intent = new Intent(this,.class);
-        //startActivity(intent);
+    public void logIn(){
+        //Cal actualitzar la base de dades
+
+        EditText name = (EditText) usuari;
+        EditText password = (EditText) contrasenya;
+        if(viewModel.canLog(name.getText().toString(),password.getText().toString())){
+            gotToPantallaActivity();
+        }
+
+        //Netejem els camps
+        usuari.setText("");
+        contrasenya.setText("");
     }
-    public void gotoPantallaActivity(){
+
+    public void gotToPantallaActivity(){
         Intent intent = new Intent( this, PantallaActivity.class);
         startActivity(intent);
 

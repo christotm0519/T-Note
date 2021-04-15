@@ -2,6 +2,7 @@ package com.example.t_note;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.t_note.Model.ImageNote;
 import com.example.t_note.Model.Note;
+import com.example.t_note.Model.PantallaViewModel;
 import com.example.t_note.Model.TextNote;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -31,6 +33,8 @@ public class PantallaActivity extends AppCompatActivity{
     private RecyclerView rview;
     private ListAdapterNote listAdapterNote;
     private int position;
+
+    private PantallaViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,9 @@ public class PantallaActivity extends AppCompatActivity{
         anual = this.findViewById(R.id.boton_Anual);
         setunvisible();
         recyclerview();
+
+        //ViewModel
+        viewModel = new ViewModelProvider(this).get(PantallaViewModel.class);
 
         //Eliminar
         eliminar.setOnClickListener(new View.OnClickListener() {
