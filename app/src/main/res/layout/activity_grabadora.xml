@@ -40,7 +40,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="573dp"
+                android:layout_height="503dp"
 
                 >
 
@@ -69,17 +69,18 @@
 
             <ImageButton
                 android:id="@+id/botonMicro"
-                android:layout_width="203dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/outline_mic_none_black_24dp"
                 android:layout_centerInParent="true"
-                />
+                android:background="@drawable/btn_uno"
+                app:srcCompat="@drawable/outline_mic_none_black_24dp" />
 
 
             <ImageButton
                 android:id="@+id/stopBoton"
-                android:layout_width="204dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:background="@drawable/btn_uno"
                 app:srcCompat="@drawable/outline_edit_black_24dp" />
 
         </LinearLayout>
