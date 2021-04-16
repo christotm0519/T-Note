@@ -31,6 +31,7 @@
 
             <ImageButton
                 android:id="@+id/boton_Eliminar"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
@@ -42,6 +43,7 @@
 
             <ImageButton
                 android:id="@+id/boton_Compartir"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
@@ -53,6 +55,7 @@
 
             <ImageButton
                 android:id="@+id/boton_Copia"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
@@ -64,6 +67,7 @@
 
             <ImageButton
                 android:id="@+id/boton_Configuracio"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"

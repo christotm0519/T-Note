@@ -108,12 +108,19 @@ public class MainActivity extends AppCompatActivity{
 
         EditText name = (EditText) usuari;
         EditText password = (EditText) contrasenya;
-        if(viewModel.canLog(name.getText().toString(),password.getText().toString())){
+        if(name.getText().toString().equals("") || password.getText().toString().equals("")){
+            option(2);
+        }
+        else if(viewModel.canLog(name.getText().toString(),password.getText().toString())){
             gotToPantallaActivity();
             usuari.setText("");
             contrasenya.setText("");
         }else{
-            option(2);
+            if(viewModel.findNameUser(name.getText().toString())){
+                option(1);
+            }else{
+                option(3);
+            }
         }
     }
 
@@ -135,6 +142,7 @@ public class MainActivity extends AppCompatActivity{
                 contrasenya.setText("");
                 break;
             case 3: //Dades incorrectes
+                textError.setText("Dades incorrectes!");
                 usuari.setText("");
                 contrasenya.setText("");
                 break;

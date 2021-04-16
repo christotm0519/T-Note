@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.t_note.Model.IniciarRegistrarViewModel;
 import com.example.t_note.Model.Users;
@@ -20,6 +21,7 @@ public class RegistrarActivity extends AppCompatActivity {
     TextInputLayout layoutUsuari, layoutContrasenya, layoutCorreo;
     TextInputEditText usuari, correo, contrasenya;
     Button confirmar;
+    TextView textError;
 
     private IniciarRegistrarViewModel viewModel;
 
@@ -52,19 +54,40 @@ public class RegistrarActivity extends AppCompatActivity {
         EditText name = (EditText) usuari;
         EditText email = (EditText) correo;
         EditText password = (EditText) contrasenya;
-        if(!name.getText().toString().equals("") && !email.getText().toString().equals("") && !password.getText().toString().equals("")){
-            if(viewModel.registrar(name.getText().toString(),email.getText().toString(),password.getText().toString())){
-                //-->Tot correcte
-                finish();
-                //Intent intent = new Intent(this,MainActivity.class);
-                //intent.putExtra -> en cas de voler enviar dades
-                //startActivity(intent);
+
+        if(name.getText().toString().equals("") || email.getText().toString().equals("") || password.getText().toString().equals("")){
+            option(2);
+        }
+        else if(viewModel.registrar(name.getText().toString(),email.getText().toString(),password.getText().toString())){
+            //-->Tot correcte
+            finish();
+        }else{
+            if(viewModel.findNameUser(name.getText().toString())){
+                option(1);
+            }if(viewModel.findEmailUser(email.getText().toString())){
+                option(3);
             }
         }
+    }
 
-        //Netejem els camps
-        usuari.setText("");
-        correo.setText("");
-        contrasenya.setText("");
+    public void option(int index){
+        switch (index){
+            case 1: //Usuari ja existent!
+                textError.setText("Usuari ja existent!");
+                usuari.setText("");
+                break;
+            case 2: //Dades buides
+                textError.setText("Falten dades!");
+                usuari.setText("");
+                correo.setText("");
+                contrasenya.setText("");
+                break;
+            case 3: //Correo electrònic ja vinculat a altre compte!
+                textError.setText("Correo electrònic ja vinculat a altre compte!");
+                correo.setText("");
+                break;
+            default:
+                break;
+        }
     }
 }
