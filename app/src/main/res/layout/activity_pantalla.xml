@@ -84,6 +84,7 @@
 
             <Button
                 android:id="@+id/boton_Tot"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -91,6 +92,7 @@
 
             <Button
                 android:id="@+id/boton_Mensual"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -98,10 +100,35 @@
 
             <Button
                 android:id="@+id/boton_Anual"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="ANUAL" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/boton_SeleccioTot"
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/boton_SeleccioMensual"
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/boton_SeleccioAnual"
+                android:layout_width="wrap_content"
+                android:layout_height="12dp"
+                android:layout_weight="1"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -167,4 +167,81 @@ public class DatabaseAdapter {
                 });
     }
 
+    public void saveTextNoteToBase (String name, String email, String password) {
+
+        // Create a new user with a first and last name
+        Map<String, Object> note = new HashMap<>();
+        note.put("name", name);
+        note.put("email", email);
+        note.put("password", password);
+
+        Log.d(TAG, "saveUser");
+        // Add a new document with a generated ID
+        db.collection("Users")
+                .add(note)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+    }
+
+    public void saveImageNotesToBase (String name, String email, String password) {
+
+        // Create a new user with a first and last name
+        Map<String, Object> note = new HashMap<>();
+        note.put("name", name);
+        note.put("email", email);
+        note.put("password", password);
+
+        Log.d(TAG, "saveUser");
+        // Add a new document with a generated ID
+        db.collection("Users")
+                .add(note)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+    }
+
+    public void saveVoiceNoteToBase (String name, String email, String password) {
+
+        // Create a new user with a first and last name
+        Map<String, Object> note = new HashMap<>();
+        note.put("name", name);
+        note.put("email", email);
+        note.put("password", password);
+
+        Log.d(TAG, "saveUser");
+        // Add a new document with a generated ID
+        db.collection("Users")
+                .add(note)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+    }
 }

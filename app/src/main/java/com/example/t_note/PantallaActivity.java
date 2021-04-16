@@ -20,6 +20,7 @@ import com.example.t_note.Model.ImageNote;
 import com.example.t_note.Model.Note;
 import com.example.t_note.Model.PantallaViewModel;
 import com.example.t_note.Model.TextNote;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
@@ -31,7 +32,7 @@ public class PantallaActivity extends AppCompatActivity{
 
     private ImageButton eliminar, compartir, copiar,configuracio;
     private ExtendedFloatingActionButton crearNota;
-    private Button tot, mensual, anual;
+    private Button tot, mensual, anual, seleccioTot, seleccioMensual, seleccioAnual;
     private RecyclerView rview;
     private ListAdapterNote listAdapterNote;
     private int position;
@@ -42,6 +43,7 @@ public class PantallaActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla);
+
         //ImatgeButtons
         eliminar = this.findViewById(R.id.boton_Eliminar);
         compartir = this.findViewById(R.id.boton_Compartir);
@@ -49,11 +51,22 @@ public class PantallaActivity extends AppCompatActivity{
         configuracio = this.findViewById(R.id.boton_Configuracio);
         crearNota = this.findViewById(R.id.boton_CrearNota);
         rview= findViewById(R.id.recycle);
+
         //Button
         tot = this.findViewById(R.id.boton_Tot);
         mensual = this.findViewById(R.id.boton_Mensual);
         anual = this.findViewById(R.id.boton_Anual);
+        seleccioTot = this.findViewById(R.id.boton_SeleccioTot);
+        seleccioTot.setActivated(false);
+        seleccioTot.setVisibility(View.INVISIBLE);
+        seleccioMensual = this.findViewById(R.id.boton_SeleccioMensual);
+        seleccioMensual.setActivated(false);
+        seleccioMensual.setVisibility(View.INVISIBLE);
+        seleccioAnual = this.findViewById(R.id.boton_SeleccioAnual);
+        seleccioAnual.setActivated(false);
+        seleccioAnual.setVisibility(View.INVISIBLE);
         setunvisible();
+        changeToTot();
         recyclerview();
 
         //ViewModel
@@ -103,8 +116,6 @@ public class PantallaActivity extends AppCompatActivity{
                     listAdapterNote.add(element);
                 }
                 setunvisible();
-
-
             }
         });
 
@@ -127,24 +138,21 @@ public class PantallaActivity extends AppCompatActivity{
         //Tot
         tot.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                changeToTot();
+            public void onClick(View v) { changeToTot();
             }
         });
 
         //Mensual
         mensual.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                changetoMensual();
+            public void onClick(View v) { changetoMensual();
             }
         });
 
         //Anual
         anual.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                changetoAnual();
+            public void onClick(View v) { changetoAnual();
             }
         });
     }
@@ -176,17 +184,27 @@ public class PantallaActivity extends AppCompatActivity{
 
     public void changeToTot(){
         //Canviar finestra RecyclerView per mostrar tot en ordre
+        seleccioTot.setVisibility(View.VISIBLE);
+        seleccioMensual.setVisibility(View.INVISIBLE);
+        seleccioAnual.setVisibility(View.INVISIBLE);
+        recyclerview();
     }
 
     public void changetoMensual(){
         //Canviar finestra RecyclerView per mostrar segons el ordre mensual
+        seleccioTot.setVisibility(View.INVISIBLE);
+        seleccioMensual.setVisibility(View.VISIBLE);
+        seleccioAnual.setVisibility(View.INVISIBLE);
+        recyclerview();
     }
 
     public void changetoAnual(){
         //Canviar finestra RecyclerView per mostrar tot en ordre anual
+        seleccioTot.setVisibility(View.INVISIBLE);
+        seleccioMensual.setVisibility(View.INVISIBLE);
+        seleccioAnual.setVisibility(View.VISIBLE);
+        recyclerview();
     }
-
-
 
     void recyclerview(){
         listAdapterNote = new ListAdapterNote(new ArrayList<Note>(),this);

@@ -37,8 +37,10 @@ public class RegistrarActivity extends AppCompatActivity {
         usuari = this.findViewById(R.id.editR_Usuari);
         correo = this.findViewById(R.id.editR_Correo);
         contrasenya = this.findViewById(R.id.editR_Contrasenya);
+        textError = this.findViewById(R.id.textR_Error);
         confirmar = this.findViewById(R.id.botonR_Confirmar);
 
+        //ViewModel
         viewModel = new ViewModelProvider(this).get(IniciarRegistrarViewModel.class);
 
         confirmar.setOnClickListener(new View.OnClickListener() {
@@ -54,13 +56,14 @@ public class RegistrarActivity extends AppCompatActivity {
         EditText name = (EditText) usuari;
         EditText email = (EditText) correo;
         EditText password = (EditText) contrasenya;
-
         if(name.getText().toString().equals("") || email.getText().toString().equals("") || password.getText().toString().equals("")){
             option(2);
         }
         else if(viewModel.registrar(name.getText().toString(),email.getText().toString(),password.getText().toString())){
             //-->Tot correcte
             finish();
+            Intent intent = new Intent( this, MainActivity.class);
+            startActivity(intent);
         }else{
             if(viewModel.findNameUser(name.getText().toString())){
                 option(1);

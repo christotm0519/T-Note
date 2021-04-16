@@ -93,8 +93,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void gotToRegistrar(){
+        finish();
         Intent intent = new Intent(this,RegistrarActivity.class);
-        //intent.putExtra("viewModel", (Serializable) viewModel);
         startActivity(intent);
     }
 
@@ -104,8 +104,6 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void logIn(){
-        //Cal actualitzar la base de dades
-
         EditText name = (EditText) usuari;
         EditText password = (EditText) contrasenya;
         if(name.getText().toString().equals("") || password.getText().toString().equals("")){
@@ -125,6 +123,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void gotToPantallaActivity(){
+        finish();
         Intent intent = new Intent( this, PantallaActivity.class);
         startActivity(intent);
 

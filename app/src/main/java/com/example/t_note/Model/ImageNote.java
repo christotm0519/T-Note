@@ -9,11 +9,11 @@ import java.util.Date;
 public class ImageNote extends Note{
     private Bitmap imatge;
 
-    public ImageNote(String tittle,/* ContactsContract.Contacts.Data dataCreació*/ Date dataCreació) {
-        super(tittle, dataCreació);;
+    public ImageNote(String tittle,/* ContactsContract.Contacts.Data dataCreació*/ Date dataCreacio) {
+        super(tittle, dataCreacio);;
     }
-    public ImageNote(String tittle,/* ContactsContract.Contacts.Data dataCreació*/ Date dataCreació, Bitmap imatge) {
-        super(tittle, dataCreació);
+    public ImageNote(String tittle,/* ContactsContract.Contacts.Data dataCreació*/ Date dataCreacio, Bitmap imatge) {
+        super(tittle, dataCreacio);
         this.imatge=imatge;
     }
 

@@ -31,11 +31,11 @@ public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmIn
 
     @Override
     public void setCollection(ArrayList<Note> users) {
-
+        this.lNotes.setValue(users);
     }
 
     @Override
     public void setToast(String s) {
-
+        this.mToast.setValue(s);
     }
 }
