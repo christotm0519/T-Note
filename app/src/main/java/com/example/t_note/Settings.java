@@ -9,23 +9,34 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 public class Settings extends AppCompatActivity {
 
 
     private Button canviarpass, tancarSessio,tema;
+    private TextView userName;
+    private String user;
     private ImageButton tornar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        canviarpass= findViewById(R.id.canviarpass);
-        findViewById(R.id.fotoperfil);
-        findViewById(R.id.nomUsuari);
-        tema =findViewById(R.id.tema);
+
+        canviarpass= this.findViewById(R.id.canviarpass);
+        userName = this.findViewById(R.id.nomUsuariL);
+        tema = this.findViewById(R.id.tema);
         tancarSessio = this.findViewById(R.id.boton_TancarSessio);
-        tornar= findViewById(R.id.boton_guardar_settings);
+        tornar= this.findViewById(R.id.boton_guardar_settings);
+
+
+        //Obtenim informació passada
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null) {
+            user = (String) bundle.get("User");
+            userName.setText(user);
+        }
 
         tornar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,8 +102,9 @@ public class Settings extends AppCompatActivity {
     }
 
     public void goToChangePassword(){
-        //Intent intent = new Intent(this,.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, CanviContrasenyaActivity.class);
+        intent.putExtra("User",user);
+        startActivity(intent);
     }
 
 }

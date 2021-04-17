@@ -13,7 +13,7 @@
         <activity android:name=".DibuixarActivity"></activity>
         <activity android:name=".GrabadoraActivity"></activity>
         <activity android:name=".NotaActivity"></activity>
-        <activity android:name=".activity_canvi_contrasenya" />
+        <activity android:name=".CanviContrasenyaActivity" />
         <activity android:name=".PantallaActivity" />
         <activity android:name=".Settings" />
         <activity android:name=".RegistrarActivity" />

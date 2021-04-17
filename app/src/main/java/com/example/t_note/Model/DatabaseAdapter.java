@@ -22,6 +22,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,7 +63,11 @@ public class DatabaseAdapter {
     }
 
     public interface vmInterfaceNotes{
-        void setCollection(ArrayList<Note> users);
+        //void setCollection(ArrayList<Note> notes);
+        void setCollectionVoice(ArrayList<VoiceNote> voiceNotes);
+        void setCollectionImatge(ArrayList<ImageNote> imageNotes);
+        void setCollectionText(ArrayList<TextNote> textNotes);
+        void setCollectionDraw(ArrayList<DrawNote> drawNotes);
         void setToast(String s);
     }
 
@@ -118,20 +124,21 @@ public class DatabaseAdapter {
     }
 
     public void getCollectionNotes(){
-        Log.d(TAG,"updateNotes");
-        DatabaseAdapter.db.collection("Note")
+        //Llegim totes les TextNotes de la base de dades
+        Log.d(TAG,"updateTextNotes");
+        DatabaseAdapter.db.collection("TextNotes")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
 
-                            ArrayList<Users> retrieved_ac = new ArrayList<Users>() ;
+                            ArrayList<TextNote> retrieved_ac = new ArrayList<TextNote>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_ac.add(new Users( document.getString("name"), document.getString("email"), document.getString("password")));
+                                retrieved_ac.add(new TextNote( document.getString("tittle"), document.getDate("dataCreacio"), document.getString("text")));
                             }
-                            listener.setCollection(retrieved_ac);
+                            listener2.setCollectionText(retrieved_ac);
 
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -139,6 +146,71 @@ public class DatabaseAdapter {
                     }
                 });
 
+        //Llegim totes les VoiceNotes de la base de dades
+        Log.d(TAG,"updateVoiceNotes");
+        DatabaseAdapter.db.collection("VoiceNotes")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            ArrayList<VoiceNote> retrieved_ac = new ArrayList<VoiceNote>() ;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                retrieved_ac.add(new VoiceNote( document.getString("tittle"), document.getDate("dataCreacio")));
+                            }
+                            listener2.setCollectionVoice(retrieved_ac);
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+        //Llegim totes les ImageNotes de la base de dades
+        Log.d(TAG,"updateImageNotes");
+        DatabaseAdapter.db.collection("ImageNotes")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            ArrayList<ImageNote> retrieved_ac = new ArrayList<ImageNote>() ;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                retrieved_ac.add(new ImageNote( document.getString("tittle"), document.getDate("dataCreacio")));
+                            }
+                            listener2.setCollectionImatge(retrieved_ac);
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+        //Llegim totes les DrawNotes de la base de dades
+        Log.d(TAG,"updateDrawNotes");
+        DatabaseAdapter.db.collection("DrawNotes")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            ArrayList<DrawNote> retrieved_ac = new ArrayList<DrawNote>() ;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                retrieved_ac.add(new DrawNote( document.getString("tittle"), document.getDate("dataCreacio")));
+                            }
+                            listener2.setCollectionDraw(retrieved_ac);
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 
     public void saveUserToBase (String name, String email, String password) {

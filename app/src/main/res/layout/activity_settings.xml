@@ -55,7 +55,7 @@
             android:text="Nom d’usuari " />
 
         <TextView
-            android:id="@+id/nomUsuari"
+            android:id="@+id/nomUsuariL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -65,8 +65,7 @@
             android:layout_marginBottom="16dp"
             android:ems="10"
             android:gravity="center"
-            android:inputType="textPersonName"
-            android:text="Usuari01" />
+            android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/canviarpass"

@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity{
     public void gotToPantallaActivity(){
         finish();
         Intent intent = new Intent( this, PantallaActivity.class);
+        intent.putExtra("User",usuari.getText().toString());
         startActivity(intent);
 
     }

@@ -36,7 +36,7 @@ public class PantallaActivity extends AppCompatActivity{
     private RecyclerView rview;
     private ListAdapterNote listAdapterNote;
     private int position;
-
+    private String user;
     private PantallaViewModel viewModel;
 
     @Override
@@ -58,12 +58,15 @@ public class PantallaActivity extends AppCompatActivity{
         anual = this.findViewById(R.id.boton_Anual);
         seleccioTot = this.findViewById(R.id.boton_SeleccioTot);
         seleccioTot.setActivated(false);
+        seleccioTot.setClickable(false);
         seleccioTot.setVisibility(View.INVISIBLE);
         seleccioMensual = this.findViewById(R.id.boton_SeleccioMensual);
         seleccioMensual.setActivated(false);
+        seleccioMensual.setClickable(false);
         seleccioMensual.setVisibility(View.INVISIBLE);
         seleccioAnual = this.findViewById(R.id.boton_SeleccioAnual);
         seleccioAnual.setActivated(false);
+        seleccioAnual.setClickable(false);
         seleccioAnual.setVisibility(View.INVISIBLE);
         setunvisible();
         changeToTot();
@@ -71,6 +74,12 @@ public class PantallaActivity extends AppCompatActivity{
 
         //ViewModel
         viewModel = new ViewModelProvider(this).get(PantallaViewModel.class);
+
+        //Obtenim informació passada
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null) {
+            user = (String) bundle.get("User");
+        }
 
         //Eliminar
         eliminar.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +180,7 @@ public class PantallaActivity extends AppCompatActivity{
 
     public void goToSettings(){
         Intent intent = new Intent(this,Settings.class);
+        intent.putExtra("User",this.user);
         startActivity(intent);
     }
 
