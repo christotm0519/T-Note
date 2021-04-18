@@ -82,6 +82,7 @@ public class Camera extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         Intent intent = new Intent( this, PantallaActivity.class);
+        intent.putExtra("edit",edit);
         if(bundle!=null){
             List<Note> listAdapterNote= (List<Note>) bundle.getSerializable("list");
             intent.putExtra("list", (Serializable) listAdapterNote);
@@ -89,6 +90,7 @@ public class Camera extends AppCompatActivity {
                 intent.putExtra("position", (Integer) bundle.get("position"));
             }
         }
+        //TextNote imageNote = new TextNote("m",new Date(),"a");
         ImageNote imageNote = new ImageNote(titol.getText().toString(), new Date());
         intent.putExtra("imatge",foto);
         intent.putExtra("NewNote",imageNote);

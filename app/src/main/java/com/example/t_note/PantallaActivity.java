@@ -140,7 +140,7 @@ public class PantallaActivity extends AppCompatActivity{
         crearNota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    goToNewNote();
+                goToNewNote();
             }
         });
 
@@ -220,12 +220,14 @@ public class PantallaActivity extends AppCompatActivity{
         listAdapterNote = new ListAdapterNote(new ArrayList<Note>(),this);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
-            List<Note> adapterNote= (List<Note>) bundle.get("list");
+            List<Note> list= (List<Note>) bundle.get("list");
             Note note = (Note) bundle.getSerializable("NewNote");
+            if(list!=null){
+                listAdapterNote.setData(list);
+            }
             if(note!=null) {
                 if (note instanceof TextNote) {
                     TextNote NewNote = (TextNote) bundle.getSerializable("NewNote");
-                    listAdapterNote.setData(adapterNote);
 
                     if (bundle.get("edit")== null || !(boolean)bundle.get("edit")){
                         listAdapterNote.add(NewNote);
@@ -273,7 +275,7 @@ public class PantallaActivity extends AppCompatActivity{
 
             }
         });
-            listAdapterNote.setOnLongClickListener(new View.OnLongClickListener() {
+        listAdapterNote.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 RecyclerView.ViewHolder card = rview.getChildViewHolder(v);

@@ -49,7 +49,9 @@ public class ListAdapterNote extends RecyclerView.Adapter implements View.OnLong
 
     @Override
     public int getItemCount(){
-        return data.size();
+
+            return data.size();
+
     }
 
     public void setOnClickListener(View.OnClickListener onClickListener){
