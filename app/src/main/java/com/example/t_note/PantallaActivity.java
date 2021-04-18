@@ -226,26 +226,19 @@ public class PantallaActivity extends AppCompatActivity{
                 listAdapterNote.setData(list);
             }
             if(note!=null) {
-                if (note instanceof TextNote) {
-                    TextNote NewNote = (TextNote) bundle.getSerializable("NewNote");
+                if(note instanceof ImageNote){
+                    ((ImageNote) note).setImatge((Bitmap) bundle.get("imatge"));
+                }
 
                     if (bundle.get("edit")== null || !(boolean)bundle.get("edit")){
-                        listAdapterNote.add(NewNote);
+                        listAdapterNote.add(note);
                     }
                     else{
                         position = (int) bundle.get("position");
-                        listAdapterNote.replace(position, NewNote);
+                        listAdapterNote.replace(position, note);
                     }
 
-                } else if(note instanceof ImageNote){
-                    ((ImageNote) note).setImatge((Bitmap) bundle.get("imatge"));
-                    listAdapterNote.add(note);
-
                 }
-            }
-
-
-
 
         }
         PantallaActivity m = this;

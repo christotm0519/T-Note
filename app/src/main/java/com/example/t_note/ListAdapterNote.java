@@ -139,7 +139,7 @@ public class ListAdapterNote extends RecyclerView.Adapter implements View.OnLong
     public List<Note> getdata() {
         return data;
     }
-    public void replace(int pos,TextNote note){
+    public void replace(int pos,Note note){
         data.set(pos,note);
         notifyItemChanged(pos);
     }
