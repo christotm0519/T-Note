@@ -33,6 +33,8 @@ public class GrabadoraActivity extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private static String fileName = null;
 
+    ImageButton saveButton = null;
+
     ImageButton recordButton = null;
     private MediaRecorder recorder = null;
 
@@ -41,7 +43,6 @@ public class GrabadoraActivity extends AppCompatActivity {
 
     Chronometer crono;
 
-    // Requesting permission to RECORD_AUDIO
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {Manifest.permission.RECORD_AUDIO};
 
@@ -56,22 +57,6 @@ public class GrabadoraActivity extends AppCompatActivity {
         if (!permissionToRecordAccepted ) finish();
 
     }
-
-    /*private void onRecord(boolean start) {
-        if (start) {
-            startRecording();
-        } else {
-            stopRecording();
-        }
-    }
-
-    private void onPlay(boolean start) {
-        if (start) {
-            startPlaying();
-        } else {
-            stopPlaying();
-        }
-    }*/
 
     private void startPlaying() {
         player = new MediaPlayer();
@@ -114,46 +99,16 @@ public class GrabadoraActivity extends AppCompatActivity {
     }
 
     class RecordButton extends androidx.appcompat.widget.AppCompatButton {
-        boolean mStartRecording = true;
-
-        /*OnClickListener clicker = new OnClickListener() {
-            public void onClick(View v) {
-                onRecord(mStartRecording);
-                if (mStartRecording) {
-                    setText("Stop recording");
-                } else {
-                    setText("Start recording");
-                }
-                mStartRecording = !mStartRecording;
-            }
-        };*/
-
         public RecordButton(Context ctx) {
             super(ctx);
             setText("Start recording");
-            //setOnClickListener(clicker);
         }
     }
 
     class PlayButton extends androidx.appcompat.widget.AppCompatButton {
-        boolean mStartPlaying = true;
-
-        /*OnClickListener clicker = new OnClickListener() {
-            public void onClick(View v) {
-                onPlay(mStartPlaying);
-                if (mStartPlaying) {
-                    setText("Stop playing");
-                } else {
-                    setText("Start playing");
-                }
-                mStartPlaying = !mStartPlaying;
-            }
-        };*/
-
         public PlayButton(Context ctx) {
             super(ctx);
             setText("Start playing");
-            //setOnClickListener(clicker);
         }
     }
 
@@ -169,21 +124,24 @@ public class GrabadoraActivity extends AppCompatActivity {
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
 
+        //saveButton = (ImageButton) findViewById(R.id.saveButton);
 
         recordButton = (ImageButton) findViewById(R.id.btn_recorder);
 
         playButton = (ImageButton) findViewById(R.id.stopBoton);
-        //playButton.setVisibility();
+        playButton.setVisibility(View.INVISIBLE);
         recordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(recorder == null){
                     crono.start();
                     startRecording();
+                    recordButton.setImageResource(R.drawable.rec);
                 } else if(recorder!=null){
                     stopRecording();
                     crono.stop();
                     crono.setBase(SystemClock.elapsedRealtime());
+                    playButton.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -193,14 +151,22 @@ public class GrabadoraActivity extends AppCompatActivity {
                 if(player == null){
                     startPlaying();
                     crono.start();
+                    playButton.setImageResource(R.drawable.pause);
                 } else if(player!=null){
                     stopPlaying();
                     crono.stop();
                     crono.setBase(SystemClock.elapsedRealtime());
+                    playButton.setVisibility(View.INVISIBLE);
                 }
-
             }
         });
+
+       /* saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });*/
     }
 
     @Override

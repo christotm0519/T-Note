@@ -23,7 +23,7 @@
             app:srcCompat="@drawable/icontnote" />
 
         <ImageButton
-            android:id="@+id/boton_guardar_settings"
+            android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 

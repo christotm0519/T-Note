@@ -35,6 +35,24 @@
                     android:layout_marginTop="5dp"
                     app:srcCompat="@drawable/icontnote" />
 
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/boton_guardar_settings3"
+                    android:layout_width="56dp"
+                    android:layout_height="49dp"
+
+                    android:layout_gravity="right"
+                    android:layout_marginTop="-1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginRight="1dp"
+                    android:background="#FFFFFF"
+                    app:srcCompat="@drawable/_714__2___1_" />
+
 
             </LinearLayout>
 
@@ -70,8 +88,10 @@
             <ImageButton
                 android:id="@+id/btn_recorder"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_centerInParent="true"
+                android:layout_marginRight="165dp"
+                android:layout_marginLeft="165dp"
                 android:background="@drawable/btn_uno"
                 app:srcCompat="@drawable/mic" />
 
@@ -79,9 +99,11 @@
             <ImageButton
                 android:id="@+id/stopBoton"
                 android:layout_width="match_parent"
-                android:layout_height="57dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="165dp"
+                android:layout_marginRight="165dp"
                 android:background="@drawable/btn_uno"
-                app:srcCompat="@drawable/outline_edit_black_24dp" />
+                app:srcCompat="@drawable/play" />
 
         </LinearLayout>
 

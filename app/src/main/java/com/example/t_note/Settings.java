@@ -28,7 +28,7 @@ public class Settings extends AppCompatActivity {
         userName = this.findViewById(R.id.nomUsuariL);
         tema = this.findViewById(R.id.tema);
         tancarSessio = this.findViewById(R.id.boton_TancarSessio);
-        tornar= this.findViewById(R.id.boton_guardar_settings);
+        tornar= this.findViewById(R.id.saveButton);
 
 
         //Obtenim informació passada
