@@ -21,4 +21,5 @@ public class VoiceNote extends Note implements Serializable, saveDades {
         Log.d("saveNote", "saveNote-> saveVoiceNoteToBase");
         adapter.saveVoiceNoteToBase(getTittle(),getDataCreacio(),getUser());
     }
+
 }

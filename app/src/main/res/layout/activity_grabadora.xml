@@ -40,7 +40,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="503dp"
+                android:layout_height="454dp"
 
                 >
 
@@ -68,12 +68,12 @@
             </RelativeLayout>
 
             <ImageButton
-                android:id="@+id/botonMicro"
+                android:id="@+id/btn_recorder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="@drawable/btn_uno"
-                app:srcCompat="@drawable/outline_mic_none_black_24dp" />
+                app:srcCompat="@drawable/mic" />
 
 
             <ImageButton
