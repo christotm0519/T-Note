@@ -57,7 +57,7 @@ public class GrabadoraActivity extends AppCompatActivity {
 
     }
 
-    private void onRecord(boolean start) {
+    /*private void onRecord(boolean start) {
         if (start) {
             startRecording();
         } else {
@@ -71,7 +71,7 @@ public class GrabadoraActivity extends AppCompatActivity {
         } else {
             stopPlaying();
         }
-    }
+    }*/
 
     private void startPlaying() {
         player = new MediaPlayer();
@@ -116,7 +116,7 @@ public class GrabadoraActivity extends AppCompatActivity {
     class RecordButton extends androidx.appcompat.widget.AppCompatButton {
         boolean mStartRecording = true;
 
-        OnClickListener clicker = new OnClickListener() {
+        /*OnClickListener clicker = new OnClickListener() {
             public void onClick(View v) {
                 onRecord(mStartRecording);
                 if (mStartRecording) {
@@ -126,19 +126,19 @@ public class GrabadoraActivity extends AppCompatActivity {
                 }
                 mStartRecording = !mStartRecording;
             }
-        };
+        };*/
 
         public RecordButton(Context ctx) {
             super(ctx);
             setText("Start recording");
-            setOnClickListener(clicker);
+            //setOnClickListener(clicker);
         }
     }
 
     class PlayButton extends androidx.appcompat.widget.AppCompatButton {
         boolean mStartPlaying = true;
 
-        OnClickListener clicker = new OnClickListener() {
+        /*OnClickListener clicker = new OnClickListener() {
             public void onClick(View v) {
                 onPlay(mStartPlaying);
                 if (mStartPlaying) {
@@ -148,12 +148,12 @@ public class GrabadoraActivity extends AppCompatActivity {
                 }
                 mStartPlaying = !mStartPlaying;
             }
-        };
+        };*/
 
         public PlayButton(Context ctx) {
             super(ctx);
             setText("Start playing");
-            setOnClickListener(clicker);
+            //setOnClickListener(clicker);
         }
     }
 
@@ -173,6 +173,7 @@ public class GrabadoraActivity extends AppCompatActivity {
         recordButton = (ImageButton) findViewById(R.id.btn_recorder);
 
         playButton = (ImageButton) findViewById(R.id.stopBoton);
+        //playButton.setVisibility();
         recordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,7 +194,7 @@ public class GrabadoraActivity extends AppCompatActivity {
                     startPlaying();
                     crono.start();
                 } else if(player!=null){
-                    startPlaying();
+                    stopPlaying();
                     crono.stop();
                     crono.setBase(SystemClock.elapsedRealtime());
                 }
