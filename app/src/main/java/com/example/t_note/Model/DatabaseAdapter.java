@@ -25,7 +25,9 @@ import com.google.firebase.storage.UploadTask;
 import org.w3c.dom.Text;
 
 import java.io.File;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
@@ -123,7 +125,7 @@ public class DatabaseAdapter {
 
     }
 
-    public void getCollectionNotes(){
+    public void getCollectionNotes(String user){
         //Llegim totes les TextNotes de la base de dades
         Log.d(TAG,"updateTextNotes");
         DatabaseAdapter.db.collection("TextNotes")
@@ -136,7 +138,9 @@ public class DatabaseAdapter {
                             ArrayList<TextNote> retrieved_ac = new ArrayList<TextNote>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_ac.add(new TextNote( document.getString("tittle"), document.getDate("dataCreacio"), document.getString("text")));
+                                if (document.getString("user").equals(user)){
+                                    retrieved_ac.add(new TextNote( document.getString("tittle"), document.getDate("dataCreacio"), document.getString("user"), document.getString("text")));
+                                }
                             }
                             listener2.setCollectionText(retrieved_ac);
 
@@ -158,7 +162,9 @@ public class DatabaseAdapter {
                             ArrayList<VoiceNote> retrieved_ac = new ArrayList<VoiceNote>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_ac.add(new VoiceNote( document.getString("tittle"), document.getDate("dataCreacio")));
+                                if (document.getString("user").equals(user)){
+                                    retrieved_ac.add(new VoiceNote( document.getString("tittle"), document.getDate("dataCreacio"), document.getString("user")));
+                                }
                             }
                             listener2.setCollectionVoice(retrieved_ac);
 
@@ -180,7 +186,9 @@ public class DatabaseAdapter {
                             ArrayList<ImageNote> retrieved_ac = new ArrayList<ImageNote>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_ac.add(new ImageNote( document.getString("tittle"), document.getDate("dataCreacio")));
+                                if (document.getString("user").equals(user)){
+                                    retrieved_ac.add(new ImageNote( document.getString("tittle"), document.getDate("dataCreacio"), document.getString("user")));
+                                }
                             }
                             listener2.setCollectionImatge(retrieved_ac);
 
@@ -202,7 +210,9 @@ public class DatabaseAdapter {
                             ArrayList<DrawNote> retrieved_ac = new ArrayList<DrawNote>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_ac.add(new DrawNote( document.getString("tittle"), document.getDate("dataCreacio")));
+                                if (document.getString("user").equals(user)){
+                                    retrieved_ac.add(new DrawNote( document.getString("tittle"), document.getDate("dataCreacio"), document.getString("user")));
+                                }
                             }
                             listener2.setCollectionDraw(retrieved_ac);
 
@@ -239,17 +249,39 @@ public class DatabaseAdapter {
                 });
     }
 
-    public void saveTextNoteToBase (String name, String email, String password) {
+    public void changePassword (String name, String email, String password) {
+        //Cercar ususari
+        DatabaseAdapter.db.collection("Users")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (document.getString("name").equals(name)){
+                                    String path = document.getId();
+                                    db.collection("Users").document(path)
+                                            .update("password",password);
+                                }
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
 
-        // Create a new user with a first and last name
+    public void saveTextNoteToBase (String tittle, Date dataCreacio, String user, String text) {
+
         Map<String, Object> note = new HashMap<>();
-        note.put("name", name);
-        note.put("email", email);
-        note.put("password", password);
+        note.put("tittle", tittle);
+        note.put("dataCreacio", dataCreacio);
+        note.put("user", user);
+        note.put("text", text);
 
-        Log.d(TAG, "saveUser");
+        Log.d(TAG, "saveTextNote");
         // Add a new document with a generated ID
-        db.collection("Users")
+        db.collection("TextNotes")
                 .add(note)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -265,17 +297,16 @@ public class DatabaseAdapter {
                 });
     }
 
-    public void saveImageNotesToBase (String name, String email, String password) {
+    public void saveImageNoteToBase (String tittle, Date dataCreacio, String user) {
 
-        // Create a new user with a first and last name
         Map<String, Object> note = new HashMap<>();
-        note.put("name", name);
-        note.put("email", email);
-        note.put("password", password);
+        note.put("tittle", tittle);
+        note.put("dataCreacio", dataCreacio);
+        note.put("user", user);
 
-        Log.d(TAG, "saveUser");
+        Log.d(TAG, "saveImageNote");
         // Add a new document with a generated ID
-        db.collection("Users")
+        db.collection("ImageNotes")
                 .add(note)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -291,17 +322,41 @@ public class DatabaseAdapter {
                 });
     }
 
-    public void saveVoiceNoteToBase (String name, String email, String password) {
+    public void saveVoiceNoteToBase (String tittle, Date dataCreacio, String user) {
 
-        // Create a new user with a first and last name
         Map<String, Object> note = new HashMap<>();
-        note.put("name", name);
-        note.put("email", email);
-        note.put("password", password);
+        note.put("tittle", tittle);
+        note.put("dataCreacio", dataCreacio);
+        note.put("user", user);
 
-        Log.d(TAG, "saveUser");
+        Log.d(TAG, "saveVoiceNote");
         // Add a new document with a generated ID
-        db.collection("Users")
+        db.collection("VoiceNotes")
+                .add(note)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+    }
+
+    public void saveDrawNoteToBase (String tittle, Date dataCreacio, String user) {
+
+        Map<String, Object> note = new HashMap<>();
+        note.put("tittle", tittle);
+        note.put("dataCreacio", dataCreacio);
+        note.put("user", user);
+
+        Log.d(TAG, "saveDrawNote");
+        // Add a new document with a generated ID
+        db.collection("DrawNotes")
                 .add(note)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

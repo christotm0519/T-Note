@@ -43,6 +43,16 @@
             android:background="#FFFFFF"
             app:srcCompat="@drawable/usuario_de_perfil__1_" />
 
+        <Button
+            android:id="@+id/boton10"
+            android:layout_width="match_parent"
+            android:layout_height="13dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:clickable="false"
+            app:backgroundTint="#020202" />
+
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
@@ -50,9 +60,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
-            android:text="Nom d’usuari " />
+            android:text="NOM D'USUARI " />
 
         <TextView
             android:id="@+id/nomUsuariL"
@@ -64,46 +75,85 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:ems="10"
-            android:gravity="center"
-            android:inputType="textPersonName" />
+            android:gravity="left"
+            android:inputType="textPersonName"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/boton11"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:clickable="false"
+            app:backgroundTint="#020202" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="CONFIGURACIONS" />
 
         <Button
             android:id="@+id/canviarpass"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="9dp"
             android:layout_marginLeft="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="Canviar contrasenya " />
+            android:gravity="left"
+            android:text="CANVIAR CONTRASENYA"
+            android:textColor="#050505" />
+
+        <Button
+            android:id="@+id/canviarNameUser"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginStart="9dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="CANVIAR NOM D'USUARI"
+            android:textColor="#050505"/>
 
 
         <Button
             android:id="@+id/tema"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="16dp"
+            android:gravity="left"
+            android:layout_marginStart="9dp"
             android:layout_marginLeft="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:gravity="center"
-            android:text="TEMA"
-            android:textSize="20dp" />
+            android:textColor="#050505"
+            android:text="TEMA" />
 
         <Button
             android:id="@+id/boton_TancarSessio"
-            style="?attr/materialButtonOutlinedStyle"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="16dp"
+            android:gravity="left"
+            android:textColor="#050505"
+            android:layout_marginStart="9dp"
             android:layout_marginLeft="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:text="Tancar Sessió" />
+            android:text="TANCAR SESSIÓ" />
 
 
     </LinearLayout>

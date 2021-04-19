@@ -81,6 +81,8 @@ public class PantallaActivity extends AppCompatActivity{
             user = (String) bundle.get("User");
         }
 
+        viewModel.setUser(user);
+
         //Eliminar
         eliminar.setOnClickListener(new View.OnClickListener() {
             @Override

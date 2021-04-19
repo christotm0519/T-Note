@@ -17,6 +17,8 @@ public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmIn
     private final MutableLiveData<ArrayList<DrawNote>> lDrawNotes;
     private final MutableLiveData<String> mToast;
 
+    private String userName;
+
     public static final String TAG = "ViewModelInici";
 
     //Constructor
@@ -32,7 +34,7 @@ public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmIn
         lDrawNotes = new MutableLiveData<>();
         lDrawNotes.setValue(new ArrayList<DrawNote>());
         mToast = new MutableLiveData<>();
-        DatabaseAdapter da= new DatabaseAdapter(this);
+        //DatabaseAdapter da= new DatabaseAdapter(this);
         //da.getCollectionNotes();
     }
 
@@ -52,6 +54,11 @@ public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmIn
 
     public MutableLiveData<ArrayList<DrawNote>> getlDrawNotes() { return lDrawNotes; }
 
+    public void setUser(String user){
+        userName = user;
+        DatabaseAdapter da= new DatabaseAdapter(this);
+        da.getCollectionNotes(userName);
+    }
     //@Override
     /*public void setCollection(ArrayList<Note> notes) {this.lNotes.setValue(notes);}*/
 

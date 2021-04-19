@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.t_note">
 
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,16 +14,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TNote">
-        <activity android:name=".Camera"></activity>
-        <activity android:name=".DibuixarActivity"></activity>
-        <activity android:name=".GrabadoraActivity"></activity>
-        <activity android:name=".NotaActivity"></activity>
+        <activity android:name=".CanviUsuariActivity"></activity>
+        <activity android:name=".Camera" />
+        <activity android:name=".DibuixarActivity" />
+        <activity android:name=".GrabadoraActivity" />
+        <activity android:name=".NotaActivity" />
         <activity android:name=".CanviContrasenyaActivity" />
         <activity android:name=".PantallaActivity" />
         <activity android:name=".Settings" />
         <activity android:name=".RegistrarActivity" />
         <activity android:name=".MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,10 +34,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
     </application>
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
 </manifest>

@@ -42,4 +42,9 @@ public class Users {
         Log.d("saveUser", "saveUser-> saveUserToBase");
         adapter.saveUserToBase(this.name,this.email,this.password);
     }
+
+    public void changePasswordUser(String password){
+        setPassword(password);
+        adapter.changePassword(name,email,password);
+    }
 }
