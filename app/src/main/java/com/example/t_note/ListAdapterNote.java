@@ -1,6 +1,8 @@
 package com.example.t_note;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -172,7 +174,13 @@ public class ListAdapterNote extends RecyclerView.Adapter implements View.OnLong
         }
         void bindData(final ImageNote nota){
             titol.setText(nota.getTittle());
-            imatge.setImageBitmap(nota.getImatge());
+            byte[] byteArray = nota.getImatge();
+            if(byteArray!=null){
+                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                imatge.setImageBitmap(bmp);
+            }
+
+
         }
     }
 }

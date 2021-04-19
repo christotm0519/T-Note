@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -228,9 +229,7 @@ public class PantallaActivity extends AppCompatActivity{
                 listAdapterNote.setData(list);
             }
             if(note!=null) {
-                if(note instanceof ImageNote){
-                    ((ImageNote) note).setImatge((Bitmap) bundle.get("imatge"));
-                }
+
 
                     if (bundle.get("edit")== null || !(boolean)bundle.get("edit")){
                         listAdapterNote.add(note);
@@ -261,7 +260,9 @@ public class PantallaActivity extends AppCompatActivity{
                 else if(element instanceof ImageNote){
                     Intent intent = new Intent(m,Camera.class);
                     intent.putExtra("titol",element.getTittle());
-                    intent.putExtra("Imatge", ((ImageNote) element).getImatge());
+                    byte[] byteArray = ((ImageNote) element).getImatge();
+                    Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                    intent.putExtra("Imatge", bmp);
                     intent.putExtra("position",position);
                     intent.putExtra("list", (Serializable) listAdapterNote.getdata());
                     startActivity(intent);

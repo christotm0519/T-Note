@@ -5,9 +5,9 @@ import android.util.Log;
 import java.io.Serializable;
 import java.util.Date;
 
-public class TextNote extends Note implements saveDades{
+public class TextNote extends Note{
     private String text;
-    private final DatabaseAdapter adapter = DatabaseAdapter.databaseAdapter;
+    //private final DatabaseAdapter adapter = DatabaseAdapter.databaseAdapter;
 
     public TextNote(String tittle, Date dataCreació, String text) {
         super(tittle, dataCreació);
@@ -27,9 +27,8 @@ public class TextNote extends Note implements saveDades{
         this.text = text;
     }
 
-    @Override
-    public void saveNote() {
+    /*public void saveNote() {
         Log.d("saveNote", "saveNote-> saveTextNoteToBase");
         adapter.saveTextNoteToBase(getTittle(),getDataCreacio(),getUser(),text);
-    }
+    }*/
 }

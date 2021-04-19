@@ -7,9 +7,9 @@ import android.util.Log;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ImageNote extends Note implements saveDades{
-    private Bitmap imatge;
-    private final DatabaseAdapter adapter = DatabaseAdapter.databaseAdapter;
+public class ImageNote extends Note {
+    private byte[] imatge;
+    //private final DatabaseAdapter adapter = DatabaseAdapter.databaseAdapter;
 
     public ImageNote(String tittle,Date dataCreacio) {
         super(tittle, dataCreacio);;
@@ -19,27 +19,27 @@ public class ImageNote extends Note implements saveDades{
         super(tittle, dataCreacio, user);;
     }
 
-    public ImageNote(String tittle, Date dataCreacio, Bitmap imatge) {
+    public ImageNote(String tittle, Date dataCreacio, byte[] imatge) {
         super(tittle, dataCreacio);
         this.imatge=imatge;
     }
 
-    public ImageNote(String tittle, Date dataCreacio, String user, Bitmap imatge) {
+    public ImageNote(String tittle, Date dataCreacio, String user, byte[] imatge) {
         super(tittle, dataCreacio,user);
         this.imatge=imatge;
     }
 
-    public Bitmap getImatge() {
+    public byte[] getImatge() {
         return imatge;
     }
 
-    public void setImatge(Bitmap imatge) {
+    public void setImatge(byte[] imatge) {
         this.imatge = imatge;
     }
 
-    @Override
+   /* @Override
     public void saveNote() {
         Log.d("saveNote", "saveNote-> saveImageNoteToBase");
         adapter.saveImageNoteToBase(getTittle(),getDataCreacio(),getUser());
-    }
+    }*/
 }

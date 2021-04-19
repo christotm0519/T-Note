@@ -21,6 +21,7 @@ import com.example.t_note.Model.ImageNote;
 import com.example.t_note.Model.Note;
 import com.example.t_note.Model.TextNote;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -91,8 +92,14 @@ public class Camera extends AppCompatActivity {
             }
         }
         //TextNote imageNote = new TextNote("m",new Date(),"a");
-        ImageNote imageNote = new ImageNote(titol.getText().toString(), new Date());
-        intent.putExtra("imatge",foto);
+        byte[] byteArray= null;
+        if(foto!=null){
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            foto.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byteArray = stream.toByteArray();
+        }
+
+        ImageNote imageNote = new ImageNote(titol.getText().toString(), new Date(),byteArray);
         intent.putExtra("NewNote",imageNote);
         startActivity(intent);
     }
