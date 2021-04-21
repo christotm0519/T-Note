@@ -76,7 +76,10 @@
                 android:inputType="textPassword"/>
 
         </com.google.android.material.textfield.TextInputLayout>
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleC"
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
         <Button
             android:id="@+id/botonC_Confirmar"
             style="?attr/materialButtonOutlinedStyle"
@@ -84,6 +87,14 @@
             android:layout_height="81dp"
             android:layout_marginTop="10dp"
             android:text="CONFIRMAR" />
+
+        <Button
+            android:id="@+id/botonM_ForgotPassword2"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|left"
+            android:text="Has oblidat la contrasenya?" />
 
         <TextView
             android:id="@+id/textC_Error"

@@ -9,6 +9,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -20,12 +21,21 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Chronometer;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.t_note.Model.ImageNote;
+import com.example.t_note.Model.Note;
+import com.example.t_note.Model.VoiceNote;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 public class GrabadoraActivity extends AppCompatActivity {
 
@@ -34,6 +44,10 @@ public class GrabadoraActivity extends AppCompatActivity {
     private static String fileName = null;
 
     ImageButton saveButton = null;
+    private EditText titol;
+
+    private boolean edit=false;
+    private Bitmap audio;
 
     ImageButton recordButton = null;
     private MediaRecorder recorder = null;
@@ -121,6 +135,7 @@ public class GrabadoraActivity extends AppCompatActivity {
 
         fileName = getExternalCacheDir().getAbsolutePath();
         fileName = fileName+ File.separator + "/audiorecordtest.3gp";
+        titol = (EditText) findViewById(R.id.titolAudio);
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
 
@@ -134,6 +149,7 @@ public class GrabadoraActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(recorder == null){
+                    playButton.setVisibility(View.INVISIBLE);
                     crono.start();
                     startRecording();
                     recordButton.setImageResource(R.drawable.rec);
@@ -142,6 +158,7 @@ public class GrabadoraActivity extends AppCompatActivity {
                     crono.stop();
                     crono.setBase(SystemClock.elapsedRealtime());
                     playButton.setVisibility(View.VISIBLE);
+                    recordButton.setImageResource(R.drawable.mic);
                 }
             }
         });
@@ -156,7 +173,7 @@ public class GrabadoraActivity extends AppCompatActivity {
                     stopPlaying();
                     crono.stop();
                     crono.setBase(SystemClock.elapsedRealtime());
-                    playButton.setVisibility(View.INVISIBLE);
+                    playButton.setImageResource(R.drawable.play);
                 }
             }
         });
@@ -164,7 +181,7 @@ public class GrabadoraActivity extends AppCompatActivity {
        /* saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                gotopantalla();
             }
         });*/
     }
@@ -182,4 +199,29 @@ public class GrabadoraActivity extends AppCompatActivity {
             player = null;
         }
     }
+
+    /*private void gotopantalla() {
+
+        Bundle bundle = getIntent().getExtras();
+        Intent intent = new Intent( this, PantallaActivity.class);
+        intent.putExtra("edit",edit);
+        if(bundle!=null){
+            List<Note> listAdapterNote= (List<Note>) bundle.getSerializable("list");
+            intent.putExtra("list", (Serializable) listAdapterNote);
+            if(edit){
+                intent.putExtra("position", (Integer) bundle.get("position"));
+            }
+        }
+        //TextNote imageNote = new TextNote("m",new Date(),"a");
+        byte[] byteArray = null;
+        if(audio!=null){
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            audio.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byteArray = stream.toByteArray();
+        }
+
+        VoiceNote imageNote = new VoiceNote(titol.getText().toString(), new Date(),byteArray);
+        intent.putExtra("NewNote",imageNote);
+        startActivity(intent);
+    }*/
 }
