@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.t_note.Model.Note;
+import com.example.t_note.Model.PantallaViewModel;
 import com.example.t_note.Model.TextNote;
 
 import java.io.Serializable;
@@ -21,6 +22,9 @@ public class NotaActivity extends AppCompatActivity {
     private ImageButton guardar,dibuixar,foto,grabar;
     private EditText titol,text;
     private boolean edit=false;
+
+    private PantallaViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,16 +37,14 @@ public class NotaActivity extends AppCompatActivity {
         foto= findViewById(R.id.cam);
         Bundle bundle = getIntent().getExtras();
         if(bundle!=null){
+            viewModel = (PantallaViewModel) bundle.getParcelable("viewModel");
             String titolanterior = (String) bundle.get("titol");
             String textanterior = (String)bundle.get("text");
             if(titolanterior!=null){
                 edit=true;
                 titol.setText(titolanterior);
                 text.setText(textanterior);
-
-
             }
-
         }
 
 
@@ -51,7 +53,6 @@ public class NotaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 gotoPantallaActivity();
-
             }
         });
     
@@ -105,6 +106,7 @@ public class NotaActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         Intent intent = new Intent( this, PantallaActivity.class);
         intent.putExtra("edit",edit);
+        intent.putExtra("User", "Christo");
         if(bundle!=null){
             List<Note> listAdapterNote= (List<Note>) bundle.getSerializable("list");
             intent.putExtra("list", (Serializable) listAdapterNote);
@@ -112,7 +114,7 @@ public class NotaActivity extends AppCompatActivity {
                 intent.putExtra("position", (Integer) bundle.get("position"));
             }
         }
-        intent.putExtra("NewNote",new TextNote(titol.getText().toString(), new Date(), text.getText().toString()));
+        intent.putExtra("NewNote",(Serializable) new TextNote(titol.getText().toString(), new Date(), text.getText().toString()));
         startActivity(intent);
     }
 }

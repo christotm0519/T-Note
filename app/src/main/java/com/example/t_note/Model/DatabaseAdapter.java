@@ -41,36 +41,23 @@ public class DatabaseAdapter {
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user;
 
-    public static vmInterfaceUsers listener;
-    public static vmInterfaceNotes listener2;
+    public static vmInterfaceNotes listener;
     public static DatabaseAdapter databaseAdapter;
 
-    public DatabaseAdapter(vmInterfaceUsers listener){
+    public DatabaseAdapter(vmInterfaceNotes listener){
         this.listener = listener;
         databaseAdapter = this;
         FirebaseFirestore.setLoggingEnabled(true);
         initFirebase();
     }
 
-    public DatabaseAdapter(vmInterfaceNotes listener){
-        this.listener2 = listener;
-        databaseAdapter = this;
-        FirebaseFirestore.setLoggingEnabled(true);
-        initFirebase();
-    }
-
-    public interface vmInterfaceUsers{
-        void setCollection(ArrayList<Users> users);
-        void setToast(String s);
-    }
-
     public interface vmInterfaceNotes{
-        //void setCollection(ArrayList<Note> notes);
-        void setCollectionVoice(ArrayList<VoiceNote> voiceNotes);
-        void setCollectionImatge(ArrayList<ImageNote> imageNotes);
-        void setCollectionText(ArrayList<TextNote> textNotes);
-        void setCollectionDraw(ArrayList<DrawNote> drawNotes);
-        void setToast(String s);
+        void setCollection(ArrayList<Note> notes);
+        //void setCollectionVoice(ArrayList<VoiceNote> voiceNotes);
+        //void setCollectionImatge(ArrayList<ImageNote> imageNotes);
+        //void setCollectionText(ArrayList<TextNote> textNotes);
+        //void setCollectionDraw(ArrayList<DrawNote> drawNotes);
+        //void setToast(String s);
     }
 
     public void initFirebase(){
@@ -101,32 +88,10 @@ public class DatabaseAdapter {
         }*/
     }
 
-    public void getCollectionUsers(){
-        Log.d(TAG,"updateUsers");
-        DatabaseAdapter.db.collection("Users")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-
-                            ArrayList<Users> retrieved_ac = new ArrayList<Users>() ;
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                retrieved_ac.add(new Users( document.getString("name"), document.getString("email"), document.getString("password")));
-                            }
-                            listener.setCollection(retrieved_ac);
-
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-
-    }
-
     public void getCollectionNotes(String user){
         //Llegim totes les TextNotes de la base de dades
+        ArrayList<Note>retrieved_ac = new ArrayList<Note>() ;
+
         Log.d(TAG,"updateTextNotes");
         DatabaseAdapter.db.collection("TextNotes")
                 .get()
@@ -135,14 +100,12 @@ public class DatabaseAdapter {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
 
-                            ArrayList<TextNote> retrieved_ac = new ArrayList<TextNote>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 if (document.getString("user").equals(user)){
                                     retrieved_ac.add(new TextNote( document.getString("tittle"), document.getDate("dataCreacio"), document.getString("user"), document.getString("text")));
                                 }
                             }
-                            listener2.setCollectionText(retrieved_ac);
 
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -159,14 +122,12 @@ public class DatabaseAdapter {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
 
-                            ArrayList<VoiceNote> retrieved_ac = new ArrayList<VoiceNote>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 if (document.getString("user").equals(user)){
                                     retrieved_ac.add(new VoiceNote( document.getString("tittle"), document.getDate("dataCreacio"), document.getString("user")));
                                 }
                             }
-                            listener2.setCollectionVoice(retrieved_ac);
 
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -183,14 +144,12 @@ public class DatabaseAdapter {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
 
-                            ArrayList<ImageNote> retrieved_ac = new ArrayList<ImageNote>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 if (document.getString("user").equals(user)){
                                     retrieved_ac.add(new ImageNote( document.getString("tittle"), document.getDate("dataCreacio"), document.getString("user")));
                                 }
                             }
-                            listener2.setCollectionImatge(retrieved_ac);
 
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -207,20 +166,20 @@ public class DatabaseAdapter {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
 
-                            ArrayList<DrawNote> retrieved_ac = new ArrayList<DrawNote>() ;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 if (document.getString("user").equals(user)){
                                     retrieved_ac.add(new DrawNote( document.getString("tittle"), document.getDate("dataCreacio"), document.getString("user")));
                                 }
                             }
-                            listener2.setCollectionDraw(retrieved_ac);
 
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
+
+        listener.setCollection(retrieved_ac);
     }
 
     public void saveUserToBase (String name, String email, String password) {

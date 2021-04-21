@@ -18,24 +18,35 @@
     <TextView
         android:id="@+id/text_IniciarSessio"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="30dp"
+        android:textStyle="bold"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:layout_weight="1"
         android:text="INICIAR SESSIÓ"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/boton16"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:layout_marginTop="15dp"
+
+        android:clickable="false"
+        app:backgroundTint="#020202" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutM_Usuari"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Usuari"
+        android:layout_marginTop="20dp"
+        android:hint="Correo electrònic"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editM_Usuari"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -56,12 +67,18 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleM"
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
     <Button
         android:id="@+id/botonM_Confirmar"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:text="CONFIRMAR"/>
 
@@ -73,6 +90,23 @@
         android:layout_gravity="center_horizontal|left"
         android:text="Has oblidat la contrasenya?" />
 
+    <TextView
+        android:id="@+id/textM_Error"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:textColor="#FB0303" />
+
+    <Button
+        android:id="@+id/boton15"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:layout_marginTop="15dp"
+        android:clickable="false"
+        app:backgroundTint="#020202" />
+
     <Button
         android:id="@+id/botonM_Registrarse"
         style="?attr/materialButtonOutlinedStyle"
@@ -82,13 +116,5 @@
         android:layout_weight="1"
         android:text="Registrar-se"/>
 
-    <TextView
-        android:id="@+id/textM_Error"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:textColor="#FB0303" />
 
 </LinearLayout>

@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.t_note.Model.ChangeViewModel;
-import com.example.t_note.Model.PantallaViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class CanviContrasenyaActivity extends AppCompatActivity {
@@ -20,7 +18,6 @@ public class CanviContrasenyaActivity extends AppCompatActivity {
     private String user;
     TextView textError;
 
-    private ChangeViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +29,6 @@ public class CanviContrasenyaActivity extends AppCompatActivity {
         textError = this.findViewById(R.id.textC_Error);
         confirmar = this.findViewById(R.id.botonC_Confirmar);
 
-        //ViewModel
-        viewModel = new ViewModelProvider(this).get(ChangeViewModel.class);
 
         //Obtenim informació passada
         Bundle bundle = getIntent().getExtras();
@@ -53,33 +48,7 @@ public class CanviContrasenyaActivity extends AppCompatActivity {
     public void changePassword(){
         EditText password = (EditText) passwordA;
         EditText newPassword = (EditText) passwordN;
-        if(password.getText().toString().equals("") || newPassword.getText().toString().equals("")){
-            option(2);
-        }else{
-            if(viewModel.canChangePassword(user,passwordA.getText().toString())){
-                viewModel.changePassword(user,passwordN.getText().toString());
-                //Tancar finestra
-                finish();
-            }else{
-                option(1);
-            }
-        }
+
     }
 
-    public void option(int index){
-        switch (index){
-            case 1: //Contrasenya actual incorrecta
-                textError.setText("Contrasenya actual incorrecta!");
-                passwordA.setText("");
-                passwordN.setText("");
-                break;
-            case 2: //Dades buides
-                textError.setText("Falten dades!");
-                passwordA.setText("");
-                passwordN.setText("");
-                break;
-            default:
-                break;
-        }
-    }
 }

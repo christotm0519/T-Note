@@ -1,6 +1,5 @@
 package com.example.t_note.Model;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.io.Serializable;

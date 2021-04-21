@@ -17,17 +17,25 @@
     <TextView
         android:id="@+id/textR_Registrar"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="30dp"
+        android:textStyle="bold"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
         android:text="REGISTRAR"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
+    <Button
+        android:id="@+id/boton64"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:layout_marginTop="15dp"
+        android:clickable="false"
+        app:backgroundTint="#020202" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutR_Usuari"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:hint="Usuari"
         app:startIconDrawable="@drawable/account">
 

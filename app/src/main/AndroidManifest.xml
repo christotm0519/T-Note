@@ -16,7 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TNote">
-        <activity android:name=".CanviUsuariActivity"></activity>
         <activity android:name=".Camera" />
         <activity android:name=".DibuixarActivity" />
         <activity android:name=".GrabadoraActivity" />

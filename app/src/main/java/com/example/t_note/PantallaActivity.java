@@ -2,6 +2,7 @@ package com.example.t_note;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,16 +12,19 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.t_note.Model.DrawNote;
 import com.example.t_note.Model.ImageNote;
 import com.example.t_note.Model.Note;
 import com.example.t_note.Model.PantallaViewModel;
 import com.example.t_note.Model.TextNote;
+import com.example.t_note.Model.VoiceNote;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -73,16 +77,10 @@ public class PantallaActivity extends AppCompatActivity{
         changeToTot();
         recyclerview();
 
+
         //ViewModel
         viewModel = new ViewModelProvider(this).get(PantallaViewModel.class);
-
-        //Obtenim informació passada
-        Bundle bundle = getIntent().getExtras();
-        if(bundle!=null) {
-            user = (String) bundle.get("User");
-        }
-
-        viewModel.setUser(user);
+        setLiveDataObservers();
 
         //Eliminar
         eliminar.setOnClickListener(new View.OnClickListener() {
@@ -191,6 +189,8 @@ public class PantallaActivity extends AppCompatActivity{
         //Intent intent = new Intent(this,Camera.class);//prova
         Intent intent = new Intent(this,NotaActivity.class);
         intent.putExtra("list", (Serializable) listAdapterNote.getdata());
+        intent.putExtra("viewModel", (Parcelable) viewModel);
+        System.out.println(viewModel);
         startActivity(intent);
     }
 
@@ -288,5 +288,19 @@ public class PantallaActivity extends AppCompatActivity{
         rview.setAdapter(listAdapterNote);
     }
 
+    public void setLiveDataObservers() {
+        //Subscribe the activity to the observable
+
+        final Observer<ArrayList<Note>> observer = new Observer<ArrayList<Note>>() {
+            @Override
+            public void onChanged(ArrayList<Note> ac) {
+                //CustomAdapter newAdapter = new CustomAdapter(parentContext, ac, (CustomAdapter.playerInterface) mActivity);
+                //mRecyclerView.swapAdapter(newAdapter, false);
+                //newAdapter.notifyDataSetChanged();
+            }
+        };
+
+        viewModel.getlNotes().observe(this, observer);
+    }
 
 }

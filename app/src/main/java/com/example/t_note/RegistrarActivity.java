@@ -1,29 +1,31 @@
 package com.example.t_note;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.t_note.Model.IniciarRegistrarViewModel;
 import com.example.t_note.Model.Users;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrarActivity extends AppCompatActivity {
 
     TextInputLayout layoutUsuari, layoutContrasenya, layoutCorreo;
     TextInputEditText usuari, correo, contrasenya;
     Button confirmar;
-    TextView textError;
 
-    private IniciarRegistrarViewModel viewModel;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +39,9 @@ public class RegistrarActivity extends AppCompatActivity {
         usuari = this.findViewById(R.id.editR_Usuari);
         correo = this.findViewById(R.id.editR_Correo);
         contrasenya = this.findViewById(R.id.editR_Contrasenya);
-        textError = this.findViewById(R.id.textR_Error);
         confirmar = this.findViewById(R.id.botonR_Confirmar);
 
-        //ViewModel
-        viewModel = new ViewModelProvider(this).get(IniciarRegistrarViewModel.class);
+        mAuth = FirebaseAuth.getInstance();
 
         confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,44 +53,70 @@ public class RegistrarActivity extends AppCompatActivity {
     }
 
     public void canRegistrar(){
-        EditText name = (EditText) usuari;
-        EditText email = (EditText) correo;
-        EditText password = (EditText) contrasenya;
-        if(name.getText().toString().equals("") || email.getText().toString().equals("") || password.getText().toString().equals("")){
-            option(2);
+        String userName = usuari.getText().toString();
+        String email = correo.getText().toString();
+        String password = contrasenya.getText().toString();
+
+        if(userName.isEmpty()){
+            usuari.setError("Nom d'usuari necessari!");
+            usuari.requestFocus();
+            return;
         }
-        else if(viewModel.registrar(name.getText().toString(),email.getText().toString(),password.getText().toString())){
-            //-->Tot correcte
-            finish();
-            Intent intent = new Intent( this, MainActivity.class);
-            startActivity(intent);
-        }else{
-            if(viewModel.findNameUser(name.getText().toString())){
-                option(1);
-            }if(viewModel.findEmailUser(email.getText().toString())){
-                option(3);
-            }
+        if(email.isEmpty()){
+            correo.setError("Correo necessari!");
+            correo.requestFocus();
+            return;
         }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            correo.setError("Introdueix un correo vàlid!");
+            correo.requestFocus();
+            return;
+        }
+
+        if(password.isEmpty()){
+            contrasenya.setError("Contrasenya necessari!");
+            contrasenya.requestFocus();
+            return;
+        }
+
+        if(password.length() < 6){
+            contrasenya.setError("La contrasenya ha de contenir 6 caràcters com a mínim!");
+            contrasenya.requestFocus();
+            return;
+        }
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Users u = new Users(userName,email,password);
+
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(u).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(RegistrarActivity.this, "S'ha afegit correctament l'usuari!", Toast.LENGTH_LONG).show();
+                                        //Redirect to Login layout
+                                        goToMain();
+                                    }else{
+                                        Toast.makeText(RegistrarActivity.this, "No s'ha pogut registrar l'usuari! Torna a provar!", Toast.LENGTH_LONG).show();
+
+                                    }
+                                }
+                            });
+                        }else{
+                            Toast.makeText(RegistrarActivity.this, "Np s'ha pogut registrar!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
-    public void option(int index){
-        switch (index){
-            case 1: //Usuari ja existent!
-                textError.setText("Usuari ja existent!");
-                usuari.setText("");
-                break;
-            case 2: //Dades buides
-                textError.setText("Falten dades!");
-                usuari.setText("");
-                correo.setText("");
-                contrasenya.setText("");
-                break;
-            case 3: //Correo electrònic ja vinculat a altre compte!
-                textError.setText("Correo electrònic ja vinculat a altre compte!");
-                correo.setText("");
-                break;
-            default:
-                break;
-        }
+    public void goToMain(){
+        Intent intent = new Intent( this, MainActivity.class);
+        startActivity(intent);
     }
 }

@@ -1,23 +1,21 @@
 package com.example.t_note.Model;
 
-import android.graphics.Bitmap;
-import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmInterfaceNotes {
+public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmInterfaceNotes, Parcelable {
+
+    private int mData;
 
     private final MutableLiveData<ArrayList<Note>> lNotes;
-    private final MutableLiveData<ArrayList<TextNote>> lTextNotes;
-    private final MutableLiveData<ArrayList<ImageNote>> lImageNotes;
-    private final MutableLiveData<ArrayList<VoiceNote>> lVoiceNotes;
-    private final MutableLiveData<ArrayList<DrawNote>> lDrawNotes;
-    private final MutableLiveData<String> mToast;
 
-    private String userName;
+    private String userName = "YATUSABE";
 
     public static final String TAG = "ViewModelInici";
 
@@ -25,55 +23,64 @@ public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmIn
     public PantallaViewModel(){
         lNotes = new MutableLiveData<>();
         lNotes.setValue(new ArrayList<Note>());
-        lTextNotes = new MutableLiveData<>();
-        lTextNotes.setValue(new ArrayList<TextNote>());
-        lImageNotes = new MutableLiveData<>();
-        lImageNotes.setValue(new ArrayList<ImageNote>());
-        lVoiceNotes = new MutableLiveData<>();
-        lVoiceNotes.setValue(new ArrayList<VoiceNote>());
-        lDrawNotes = new MutableLiveData<>();
-        lDrawNotes.setValue(new ArrayList<DrawNote>());
-        mToast = new MutableLiveData<>();
         //DatabaseAdapter da= new DatabaseAdapter(this);
         //da.getCollectionNotes();
     }
+
 
     public MutableLiveData<ArrayList<Note>> getlNotes() {
         return lNotes;
     }
 
-    public MutableLiveData<String> getmToast() {
-        return mToast;
+
+    public void addTextNote(String tittle, Date dataCreacio, String user, String text){
+        TextNote newNote = new TextNote(tittle,dataCreacio,user,text);
+        lNotes.getValue().add(newNote);
+        //Inform observer
+        lNotes.setValue(lNotes.getValue());
+        //Guardar a la base de dades
+        newNote.saveNote();
     }
-
-    public MutableLiveData<ArrayList<TextNote>> getlTextNotes() { return lTextNotes; }
-
-    public MutableLiveData<ArrayList<ImageNote>> getlImageNotes() { return lImageNotes; }
-
-    public MutableLiveData<ArrayList<VoiceNote>> getlVoiceNotes() { return lVoiceNotes; }
-
-    public MutableLiveData<ArrayList<DrawNote>> getlDrawNotes() { return lDrawNotes; }
 
     public void setUser(String user){
         userName = user;
         DatabaseAdapter da= new DatabaseAdapter(this);
         da.getCollectionNotes(userName);
     }
-    //@Override
-    /*public void setCollection(ArrayList<Note> notes) {this.lNotes.setValue(notes);}*/
+
+    public String getUserName(){
+        return userName;
+    }
+    @Override
+    public void setCollection(ArrayList<Note> notes) {this.lNotes.setValue(notes);}
+
 
     @Override
-    public void setCollectionVoice(ArrayList<VoiceNote> voiceNotes) { this.lVoiceNotes.setValue(voiceNotes); }
+    public int describeContents() {
+        return 0;
+    }
 
     @Override
-    public void setCollectionImatge(ArrayList<ImageNote> imageNotes) { this.lImageNotes.setValue(imageNotes);}
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mData);
+    }
 
-    @Override
-    public void setCollectionText(ArrayList<TextNote> textNotes) { this.lTextNotes.setValue(textNotes);}
+    protected PantallaViewModel(Parcel in, MutableLiveData<ArrayList<Note>> lNotes) {
+        mData = in.readInt();
+        this.lNotes = lNotes;
+    }
 
-    @Override
-    public void setCollectionDraw(ArrayList<DrawNote> drawNotes) { this.lDrawNotes.setValue(drawNotes);}
+    public static final Creator<PantallaViewModel> CREATOR = new Creator<PantallaViewModel>() {
+        private  MutableLiveData<ArrayList<Note>> lNotes;
 
-    @Override
-    public void setToast(String s) { this.mToast.setValue(s); }
+        @Override
+        public PantallaViewModel createFromParcel(Parcel in) {
+            return new PantallaViewModel(in, lNotes);
+        }
+
+        @Override
+        public PantallaViewModel[] newArray(int size) {
+            return new PantallaViewModel[size];
+        }
+    };
 }

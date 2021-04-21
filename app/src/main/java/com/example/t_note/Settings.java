@@ -11,6 +11,10 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class Settings extends AppCompatActivity {
 
 
@@ -18,6 +22,10 @@ public class Settings extends AppCompatActivity {
     private TextView userName;
     private String user;
     private ImageButton tornar;
+
+    //private FirebaseAuth user;
+    //private DatabaseReference reference;
+    //private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,10 @@ public class Settings extends AppCompatActivity {
         tema = this.findViewById(R.id.tema);
         tancarSessio = this.findViewById(R.id.boton_TancarSessio);
         tornar= this.findViewById(R.id.saveButton);
+
+        //user = FirebaseAuth.getInstance().getCurrentUser();
+        //reference = FirebaseDatabase.getInstance().getReference("Users");
+        //userId = user.getUid();
 
 
         //Obtenim informació passada
@@ -96,8 +108,8 @@ public class Settings extends AppCompatActivity {
 
 
     public void goToCloseLogin(){
+        FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(this,MainActivity.class);
-        //intent.putExtra -> en cas de voler enviar dades
         startActivity(intent);
     }
 

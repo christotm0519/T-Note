@@ -6,7 +6,9 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ import com.example.t_note.Model.Note;
 import com.example.t_note.Model.TextNote;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdapterNote extends RecyclerView.Adapter implements View.OnLongClickListener, View.OnClickListener {
@@ -51,7 +54,6 @@ public class ListAdapterNote extends RecyclerView.Adapter implements View.OnLong
 
     @Override
     public int getItemCount(){
-
             return data.size();
 
     }
@@ -183,4 +185,47 @@ public class ListAdapterNote extends RecyclerView.Adapter implements View.OnLong
 
         }
     }
+
+    /*
+    private final ArrayList<Note> localDataSet;
+    private final Context parentContext;
+    private final playerInterface listener;
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView textView;
+        private final LinearLayout audioLayout;
+        private final ImageButton playButton;
+
+        public ViewHolder(View view) {
+            super(view);
+            // Define click listener for the ViewHolder's View
+
+            textView = view.findViewById(R.id.textView);
+            audioLayout = view.findViewById(R.id.audio_layout);
+            playButton = view.findViewById(R.id.play_button);
+        }
+
+        public TextView getTextView() {
+            return textView;
+        }
+
+        public LinearLayout getLayout() {
+            return audioLayout;
+        }
+
+        public ImageButton getPlayButton() {return playButton;}
+    }
+
+    public ListAdapterNote(Context current, ArrayList<Note> dataSet, playerInterface listener) {
+        parentContext = current;
+        localDataSet = dataSet;
+        this.listener = listener;
+
+    }
+
+    public interface playerInterface{
+        void startPlaying(int fileName);
+    }
+    
+     */
 }
