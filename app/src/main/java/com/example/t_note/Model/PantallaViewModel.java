@@ -15,42 +15,54 @@ public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmIn
 
     private final MutableLiveData<ArrayList<Note>> lNotes;
 
-    private String userName = "YATUSABE";
-
     public static final String TAG = "ViewModelInici";
+
+    private String userName;
 
     //Constructor
     public PantallaViewModel(){
         lNotes = new MutableLiveData<>();
         lNotes.setValue(new ArrayList<Note>());
-        //DatabaseAdapter da= new DatabaseAdapter(this);
-        //da.getCollectionNotes();
     }
 
-
-    public MutableLiveData<ArrayList<Note>> getlNotes() {
-        return lNotes;
-    }
-
-
-    public void addTextNote(String tittle, Date dataCreacio, String user, String text){
-        TextNote newNote = new TextNote(tittle,dataCreacio,user,text);
-        lNotes.getValue().add(newNote);
-        //Inform observer
-        lNotes.setValue(lNotes.getValue());
-        //Guardar a la base de dades
-        newNote.saveNote();
-    }
-
-    public void setUser(String user){
-        userName = user;
+    public void setUserName(String name){
+        this.userName = name;
         DatabaseAdapter da= new DatabaseAdapter(this);
         da.getCollectionNotes(userName);
     }
 
     public String getUserName(){
-        return userName;
+        return this.userName;
     }
+
+    public boolean getNull(){
+        if(lNotes == null){
+            return true;
+        }
+        return false;
+    }
+    public MutableLiveData<ArrayList<Note>> getlNotes() {
+        return lNotes;
+    }
+
+    public void addTextNote(String tittle, Date dataCreacio, String user, String text){
+
+        System.out.println("HERERERERERERERERERERERERERERERERERERERERERERRERERERERERERERERERER");
+        if(lNotes == null){
+            System.out.println("EL LNOTES ESTA NULL");
+        }
+
+        /*TextNote newNote = new TextNote(tittle,dataCreacio,user,text);
+        lNotes.getValue().add(newNote);
+        //Inform observer
+        System.out.println("ANEEEEEEEEEEEEEEEEEEMMMMMMMMMM AAAA NOTIFIIIIIIIIIIIIIICAAAAAAAAAAAAAAAAARRRRRRRRRRRR");
+        lNotes.setValue(lNotes.getValue());
+        //Guardar a la base de dades
+        //newNote.saveNote();
+
+         */
+    }
+
     @Override
     public void setCollection(ArrayList<Note> notes) {this.lNotes.setValue(notes);}
 

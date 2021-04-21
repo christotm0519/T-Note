@@ -35,9 +35,11 @@ public class NotaActivity extends AppCompatActivity {
         titol = findViewById(R.id.titol_nota);
         text = findViewById(R.id.text_nota);
         foto= findViewById(R.id.cam);
-        Bundle bundle = getIntent().getExtras();
+
+        viewModel = (PantallaViewModel) getIntent().getExtras().getParcelable("viewModel");
+        /*Bundle bundle = getIntent().getExtras();
         if(bundle!=null){
-            viewModel = (PantallaViewModel) bundle.getParcelable("viewModel");
+
             String titolanterior = (String) bundle.get("titol");
             String textanterior = (String)bundle.get("text");
             if(titolanterior!=null){
@@ -45,7 +47,7 @@ public class NotaActivity extends AppCompatActivity {
                 titol.setText(titolanterior);
                 text.setText(textanterior);
             }
-        }
+        }*/
 
 
         guardar.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +105,7 @@ public class NotaActivity extends AppCompatActivity {
     }
 
     private void gotoPantallaActivity() {
-        Bundle bundle = getIntent().getExtras();
+        /*Bundle bundle = getIntent().getExtras();
         Intent intent = new Intent( this, PantallaActivity.class);
         intent.putExtra("edit",edit);
         intent.putExtra("User", "Christo");
@@ -115,6 +117,10 @@ public class NotaActivity extends AppCompatActivity {
             }
         }
         intent.putExtra("NewNote",(Serializable) new TextNote(titol.getText().toString(), new Date(), text.getText().toString()));
-        startActivity(intent);
+        startActivity(intent);*/
+        System.out.println("\n\n"+viewModel.getNull());
+        System.out.println("AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+        //viewModel.addTextNote(titol.getText().toString(), new Date(), viewModel.getUserName(),text.getText().toString());
+        finish();
     }
 }

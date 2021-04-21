@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity{
         registrar = this.findViewById(R.id.botonM_Registrarse);
         mRecyclerView = this.findViewById(R.id.recycleM);
 
-        //ViewModel
         mAuth = FirebaseAuth.getInstance();
 
         confirmar.setOnClickListener(new View.OnClickListener() {

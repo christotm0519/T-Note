@@ -2,9 +2,11 @@ package com.example.t_note.Model;
 
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.t_note.PantallaActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -13,6 +15,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -40,6 +47,9 @@ public class DatabaseAdapter {
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user;
+    private String userID;
+    private DatabaseReference reference;
+    private String userName;
 
     public static vmInterfaceNotes listener;
     public static DatabaseAdapter databaseAdapter;
@@ -62,34 +72,30 @@ public class DatabaseAdapter {
 
     public void initFirebase(){
         user = mAuth.getCurrentUser();
-        /*
-        if (user == null) {
-            mAuth.signInAnonymously()
-                    .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInAnonymously:success");
-                                listener.setToast("Authentication successful.");
-                                user = mAuth.getCurrentUser();
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w(TAG, "signInAnonymously:failure", task.getException());
-                                listener.setToast("Authentication failed.");
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userID = user.getUid();
 
-                            }
-                        }
-                    });
-        }
-        else{
-            listener.setToast("Authentication with current user.");
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users u = snapshot.getValue(Users.class);
+                if(u != null){
+                    userName = u.getName();
+                    System.out.println(userName + "1");
+                }
+            }
 
-        }*/
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d(TAG,"No s'ha pogut carregar l'usuari");
+            }
+        });
     }
 
-    public void getCollectionNotes(String user){
+    public void getCollectionNotes(String nameUser){
         //Llegim totes les TextNotes de la base de dades
+        System.out.println(userName + "2");
+        /*
         ArrayList<Note>retrieved_ac = new ArrayList<Note>() ;
 
         Log.d(TAG,"updateTextNotes");
@@ -102,7 +108,7 @@ public class DatabaseAdapter {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                if (document.getString("user").equals(user)){
+                                if (document.getString("user").equals(nameUser)){
                                     retrieved_ac.add(new TextNote( document.getString("tittle"), document.getDate("dataCreacio"), document.getString("user"), document.getString("text")));
                                 }
                             }
@@ -124,7 +130,7 @@ public class DatabaseAdapter {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                if (document.getString("user").equals(user)){
+                                if (document.getString("user").equals(nameUser)){
                                     retrieved_ac.add(new VoiceNote( document.getString("tittle"), document.getDate("dataCreacio"), document.getString("user")));
                                 }
                             }
@@ -146,7 +152,7 @@ public class DatabaseAdapter {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                if (document.getString("user").equals(user)){
+                                if (document.getString("user").equals(nameUser)){
                                     retrieved_ac.add(new ImageNote( document.getString("tittle"), document.getDate("dataCreacio"), document.getString("user")));
                                 }
                             }
@@ -168,7 +174,7 @@ public class DatabaseAdapter {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                if (document.getString("user").equals(user)){
+                                if (document.getString("user").equals(nameUser)){
                                     retrieved_ac.add(new DrawNote( document.getString("tittle"), document.getDate("dataCreacio"), document.getString("user")));
                                 }
                             }
@@ -180,6 +186,7 @@ public class DatabaseAdapter {
                 });
 
         listener.setCollection(retrieved_ac);
+        */
     }
 
     public void saveUserToBase (String name, String email, String password) {
