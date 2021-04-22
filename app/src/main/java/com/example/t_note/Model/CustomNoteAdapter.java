@@ -20,7 +20,7 @@ public class CustomNoteAdapter extends RecyclerView.Adapter<CustomNoteAdapter.Vi
 
     private final ArrayList<Note> localDataSet;
     private final Context parentContext;
-
+    private final playerInterface listener;
 
     @NonNull
     @Override
@@ -54,21 +54,26 @@ public class CustomNoteAdapter extends RecyclerView.Adapter<CustomNoteAdapter.Vi
      * (custom ViewHolder).
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView titol;
+        private TextView titol,text;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
             titol = view.findViewById(R.id.titol);
+            text = view.findViewById(R.id.text);
         }
 
         public TextView getTextView(){
             return titol;
         }
+
+        public TextView getText(){
+            return text;
+        }
     }
 
     public interface playerInterface{
-        void startPlaying(int fileName);
+        void Prueba();
     }
 
     /**
@@ -77,10 +82,10 @@ public class CustomNoteAdapter extends RecyclerView.Adapter<CustomNoteAdapter.Vi
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      */
-    public CustomNoteAdapter(Context current, ArrayList<Note> dataSet) {
+    public CustomNoteAdapter(Context current, ArrayList<Note> dataSet, playerInterface listener) {
         parentContext = current;
         localDataSet = dataSet;
-
+        this.listener = listener;
     }
 
 

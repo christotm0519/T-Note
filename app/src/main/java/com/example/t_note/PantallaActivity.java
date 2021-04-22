@@ -54,7 +54,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PantallaActivity extends AppCompatActivity{
+public class PantallaActivity extends AppCompatActivity implements CustomNoteAdapter.playerInterface{
 
     private ImageButton eliminar, compartir, copiar,configuracio;
     private ExtendedFloatingActionButton crearNota;
@@ -93,6 +93,9 @@ public class PantallaActivity extends AppCompatActivity{
         configuracio = this.findViewById(R.id.boton_Configuracio);
         crearNota = this.findViewById(R.id.boton_CrearNota);
         rview= findViewById(R.id.recycle);
+
+        rview.setHasFixedSize(true);
+        rview.setLayoutManager(new LinearLayoutManager(this));
 
         //Button
         tot = this.findViewById(R.id.boton_Tot);
@@ -244,7 +247,7 @@ public class PantallaActivity extends AppCompatActivity{
 
     public void goToNewNote(){
         View popupView = getLayoutInflater().inflate(R.layout.activity_nota, null);
-        PopupWindow popupWindow = new PopupWindow(popupView, 900, 1000);
+        PopupWindow popupWindow = new PopupWindow(popupView, 1100, 1000);
         popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable());
         popupWindow.showAtLocation(rview, Gravity.CENTER, 0, 0);
@@ -366,7 +369,7 @@ public class PantallaActivity extends AppCompatActivity{
         seleccioTot.setVisibility(View.VISIBLE);
         seleccioMensual.setVisibility(View.INVISIBLE);
         seleccioAnual.setVisibility(View.INVISIBLE);
-        recyclerview();
+        //recyclerview();
     }
 
     public void changetoMensual(){
@@ -374,7 +377,7 @@ public class PantallaActivity extends AppCompatActivity{
         seleccioTot.setVisibility(View.INVISIBLE);
         seleccioMensual.setVisibility(View.VISIBLE);
         seleccioAnual.setVisibility(View.INVISIBLE);
-        recyclerview();
+        //recyclerview();
     }
 
     public void changetoAnual(){
@@ -382,9 +385,10 @@ public class PantallaActivity extends AppCompatActivity{
         seleccioTot.setVisibility(View.INVISIBLE);
         seleccioMensual.setVisibility(View.INVISIBLE);
         seleccioAnual.setVisibility(View.VISIBLE);
-        recyclerview();
+        //recyclerview();
     }
 
+    /*
     void recyclerview(){
         listAdapterNote = new ListAdapterNote(new ArrayList<Note>(),this);
         Bundle bundle = getIntent().getExtras();
@@ -452,7 +456,7 @@ public class PantallaActivity extends AppCompatActivity{
         rview.setHasFixedSize(true);
         rview.setLayoutManager(new LinearLayoutManager(this));
         rview.setAdapter(listAdapterNote);
-    }
+    }*/
 
     public void setLiveDataObservers() {
         //Subscribe the activity to the observable
@@ -461,7 +465,7 @@ public class PantallaActivity extends AppCompatActivity{
             @Override
             public void onChanged(ArrayList<Note> ac) {
                 System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA NOTTTTTTTTAAAAAAAAAAAAAATTTTTTTTTTTT CANVIIIII");
-                CustomNoteAdapter newAdapter = new CustomNoteAdapter(parentContext, ac);
+                CustomNoteAdapter newAdapter = new CustomNoteAdapter(parentContext, ac, (CustomNoteAdapter.playerInterface) mActivity);
                 rview.swapAdapter(newAdapter, false);
                 newAdapter.notifyDataSetChanged();
             }
@@ -470,4 +474,8 @@ public class PantallaActivity extends AppCompatActivity{
         viewModel.getlNotes().observe(this, observer);
     }
 
+    @Override
+    public void Prueba() {
+        System.out.println("HEllo");
+    }
 }

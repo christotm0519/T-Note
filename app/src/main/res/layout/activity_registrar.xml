@@ -8,11 +8,22 @@
     android:padding="48dp"
     tools:context=".RegistrarActivity">
 
+    <ImageButton
+        android:id="@+id/boton_tornarM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center_vertical"
+
+        android:background="#FFFFFF"
+        app:srcCompat="@drawable/outline_arrow_back_ios_black_24dp" />
+
+
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
         app:srcCompat="@drawable/icontnote" />
     <TextView
         android:id="@+id/textR_Registrar"
@@ -71,7 +82,8 @@
         android:layout_height="wrap_content"
         android:hint="Contrasenya"
         app:startIconDrawable="@drawable/password"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editR_Contrasenya"

@@ -122,7 +122,7 @@ public class NotaActivity extends AppCompatActivity {
         }
         intent.putExtra("NewNote",(Serializable) new TextNote(titol.getText().toString(), new Date(), text.getText().toString()));
         startActivity(intent);*/
-        //viewModel.addTextNote(titol.getText().toString(), new Date(), viewModel.getUserName(),text.getText().toString());
+        viewModel.addTextNote(titol.getText().toString(), new Date(), viewModel.getUserName(),text.getText().toString());
         finish();
     }
 }

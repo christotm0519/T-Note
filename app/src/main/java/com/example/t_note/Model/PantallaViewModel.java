@@ -75,6 +75,7 @@ public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmIn
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        //dest.writeTypedList(lNotes);
         dest.writeInt(mData);
     }
 
@@ -88,7 +89,7 @@ public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmIn
 
         @Override
         public PantallaViewModel createFromParcel(Parcel in) {
-            return new PantallaViewModel(in, lNotes);
+            return new PantallaViewModel(in, this.lNotes);
         }
 
         @Override

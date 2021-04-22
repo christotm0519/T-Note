@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.t_note.Model.Users;
@@ -21,9 +22,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrarActivity extends AppCompatActivity {
 
-    TextInputLayout layoutUsuari, layoutContrasenya, layoutCorreo;
-    TextInputEditText usuari, correo, contrasenya;
-    Button confirmar;
+    private TextInputLayout layoutUsuari, layoutContrasenya, layoutCorreo;
+    private TextInputEditText usuari, correo, contrasenya;
+    private Button confirmar;
+    private ImageButton tornar;
 
     private FirebaseAuth mAuth;
 
@@ -39,6 +41,7 @@ public class RegistrarActivity extends AppCompatActivity {
         usuari = this.findViewById(R.id.editR_Usuari);
         correo = this.findViewById(R.id.editR_Correo);
         contrasenya = this.findViewById(R.id.editR_Contrasenya);
+        tornar = this.findViewById(R.id.boton_tornarM);
         confirmar = this.findViewById(R.id.botonR_Confirmar);
 
         mAuth = FirebaseAuth.getInstance();
@@ -48,6 +51,13 @@ public class RegistrarActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Comprovació de les dades
                 canRegistrar();
+            }
+        });
+
+        tornar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
