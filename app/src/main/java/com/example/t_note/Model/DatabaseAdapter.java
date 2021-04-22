@@ -242,6 +242,7 @@ public class DatabaseAdapter {
         note.put("dataCreacio", dataCreacio);
         note.put("user", user);
         note.put("text", text);
+        System.out.println("HEREREREREERER");
 
         Log.d(TAG, "saveTextNote");
         // Add a new document with a generated ID

@@ -59,9 +59,7 @@ public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmIn
         System.out.println("ANEEEEEEEEEEEEEEEEEEMMMMMMMMMM AAAA NOTIFIIIIIIIIIIIIIICAAAAAAAAAAAAAAAAARRRRRRRRRRRR");
         lNotes.setValue(lNotes.getValue());
         //Guardar a la base de dades
-        //newNote.saveNote();
-
-
+        newNote.saveNote();
     }
 
     @Override

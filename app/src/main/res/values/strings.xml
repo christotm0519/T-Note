@@ -6,4 +6,6 @@
         <item>Nit clara</item>
         <item>Nit fosca</item>
     </string-array>
+    <string name="title_activity_pantalla_principal">MainActivity</string>
+    <string name="title_home">Home</string>
 </resources>
