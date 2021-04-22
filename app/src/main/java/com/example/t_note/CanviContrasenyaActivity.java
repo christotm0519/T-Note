@@ -180,7 +180,7 @@ public class CanviContrasenyaActivity extends AppCompatActivity {
             return;
         }
 
-        System.out.println(passwordActual);
+
 
         if (password.equals(passwordActual)) {
             //Realitzar canvi

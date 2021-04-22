@@ -1,6 +1,7 @@
 package com.example.t_note;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,8 +36,11 @@ public class NotaActivity extends AppCompatActivity {
         titol = findViewById(R.id.titol_nota);
         text = findViewById(R.id.text_nota);
         foto= findViewById(R.id.cam);
+        Bundle b= getIntent().getExtras();
 
-        viewModel = (PantallaViewModel) getIntent().getExtras().getParcelable("viewModel");
+        PantallaViewModel m = (PantallaViewModel) b.getSerializable("viewModel");
+        System.out.println(m.getUserName());
+
         /*Bundle bundle = getIntent().getExtras();
         if(bundle!=null){
 
@@ -118,8 +122,6 @@ public class NotaActivity extends AppCompatActivity {
         }
         intent.putExtra("NewNote",(Serializable) new TextNote(titol.getText().toString(), new Date(), text.getText().toString()));
         startActivity(intent);*/
-        System.out.println("\n\n"+viewModel.getNull());
-        System.out.println("AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
         //viewModel.addTextNote(titol.getText().toString(), new Date(), viewModel.getUserName(),text.getText().toString());
         finish();
     }

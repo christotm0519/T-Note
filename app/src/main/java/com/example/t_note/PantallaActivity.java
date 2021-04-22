@@ -3,22 +3,31 @@ package com.example.t_note;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.example.t_note.Model.CustomNoteAdapter;
@@ -42,6 +51,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PantallaActivity extends AppCompatActivity{
@@ -60,6 +70,13 @@ public class PantallaActivity extends AppCompatActivity{
     private DatabaseReference reference;
     private String userID;
     private PantallaViewModel viewModel;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    // Requesting permission to use CAMERA
+    private boolean permissionToUseCameraAccepted = false;
+    private final String[] permissions = {Manifest.permission.CAMERA};
+    private static final int REQUEST_CAMERA_PERMISSION = 200;
+    Bitmap foto;
+    ImageView imatge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -226,13 +243,121 @@ public class PantallaActivity extends AppCompatActivity{
     }
 
     public void goToNewNote(){
-        //Intent intent = new Intent(this,Camera.class);//prova
-        Intent intent = new Intent(this,NotaActivity.class);
-        //intent.putExtra("list", (Serializable) listAdapterNote.getdata());
-        intent.putExtra("viewModel", (Parcelable) viewModel);
-        System.out.println(viewModel.getNull());
-        System.out.println(viewModel);
-        startActivity(intent);
+        View popupView = getLayoutInflater().inflate(R.layout.activity_nota, null);
+        PopupWindow popupWindow = new PopupWindow(popupView, 900, 1000);
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable());
+        popupWindow.showAtLocation(rview, Gravity.CENTER, 0, 0);
+        ImageButton guardar,dibuixar,foto,grabar;
+        EditText titol,text;
+        dibuixar=popupView.findViewById(R.id.icon6);
+        grabar=popupView.findViewById(R.id.icon7);
+        guardar=popupView.findViewById(R.id.boton_guardar_nota);
+        titol = popupView.findViewById(R.id.titol_nota);
+        text = popupView.findViewById(R.id.text_nota);
+        foto= popupView.findViewById(R.id.cam);
+        guardar.setOnClickListener(new View.OnClickListener() {
+            //Iniciar pantalla main
+            @Override
+            public void onClick(View v) {
+               viewModel.addTextNote(titol.getText().toString(), new Date(),userName, text.getText().toString());
+               popupWindow.dismiss();
+            }
+        });
+        foto.setOnClickListener(new View.OnClickListener() {
+            //Iniciar pantalla main
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+                camPopUp();
+
+            }
+        });
+        grabar.setOnClickListener(new View.OnClickListener() {
+            //Iniciar pantalla main
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+                GrabadoraPopUp();
+
+            }
+        });
+        dibuixar.setOnClickListener(new View.OnClickListener() {
+            //Iniciar pantalla main
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+                DibuixarPopUp();
+
+            }
+        });
+    }
+
+    private void camPopUp() {
+
+        View popupView = getLayoutInflater().inflate(R.layout.activity_camera, null);
+        PopupWindow popupWindow = new PopupWindow(popupView, 900, 1000);
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable());
+        popupWindow.showAtLocation(rview, Gravity.CENTER, 0, 0);
+        Button cam;
+        ImageButton guardarCam;
+
+        EditText titol;
+        ActivityCompat.requestPermissions(this, permissions, REQUEST_CAMERA_PERMISSION);
+        imatge = popupView.findViewById(R.id.imageView);
+        cam = popupView.findViewById(R.id.btnCamara);
+        guardarCam =popupView.findViewById(R.id.boton_guardar_imatge);
+        titol= popupView.findViewById(R.id.titol_imatge);
+
+
+        guardarCam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+                //viewModel.addTextNote();
+
+            }
+        });
+        cam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dispatchTakePictureIntent(view);
+            }
+        });
+
+    }
+
+    private void dispatchTakePictureIntent(View view) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        // }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            foto= (Bitmap) extras.get("data");
+            imatge.setImageBitmap(foto);
+        }
+    }
+
+    private void DibuixarPopUp() {
+        View popupView = getLayoutInflater().inflate(R.layout.activity_dibuixar, null);
+        PopupWindow popupWindow = new PopupWindow(popupView, 900, 1000);
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable());
+        popupWindow.showAtLocation(rview, Gravity.CENTER, 0, 0);
+    }
+
+    private void GrabadoraPopUp() {
+        View popupView = getLayoutInflater().inflate(R.layout.activity_grabadora, null);
+        PopupWindow popupWindow = new PopupWindow(popupView, 900, 1000);
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable());
+        popupWindow.showAtLocation(rview, Gravity.CENTER, 0, 0);
     }
 
 

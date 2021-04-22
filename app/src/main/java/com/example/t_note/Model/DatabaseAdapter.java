@@ -81,7 +81,6 @@ public class DatabaseAdapter {
                 Users u = snapshot.getValue(Users.class);
                 if(u != null){
                     userName = u.getName();
-                    System.out.println(userName + "1");
                 }
             }
 
@@ -94,7 +93,6 @@ public class DatabaseAdapter {
 
     public void getCollectionNotes(String nameUser){
         //Llegim totes les TextNotes de la base de dades
-        System.out.println(userName + "2");
         /*
         ArrayList<Note>retrieved_ac = new ArrayList<Note>() ;
 

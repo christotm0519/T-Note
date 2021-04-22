@@ -6,10 +6,11 @@ import android.os.Parcelable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmInterfaceNotes, Parcelable {
+public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmInterfaceNotes, Parcelable, Serializable {
 
     private int mData;
 
@@ -52,7 +53,7 @@ public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmIn
             System.out.println("EL LNOTES ESTA NULL");
         }
 
-        /*TextNote newNote = new TextNote(tittle,dataCreacio,user,text);
+        TextNote newNote = new TextNote(tittle,dataCreacio,user,text);
         lNotes.getValue().add(newNote);
         //Inform observer
         System.out.println("ANEEEEEEEEEEEEEEEEEEMMMMMMMMMM AAAA NOTIFIIIIIIIIIIIIIICAAAAAAAAAAAAAAAAARRRRRRRRRRRR");
@@ -60,7 +61,7 @@ public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmIn
         //Guardar a la base de dades
         //newNote.saveNote();
 
-         */
+
     }
 
     @Override
@@ -95,4 +96,5 @@ public class PantallaViewModel extends ViewModel implements DatabaseAdapter.vmIn
             return new PantallaViewModel[size];
         }
     };
+
 }
