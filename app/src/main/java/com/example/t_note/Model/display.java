@@ -44,7 +44,7 @@ public class display extends View {
         paint_brush.setStyle(Paint.Style.STROKE);
         paint_brush.setStrokeCap(Paint.Cap.ROUND);
         paint_brush.setStrokeJoin(Paint.Join.ROUND);
-        paint_brush.setStrokeWidth(1f);
+        paint_brush.setStrokeWidth(5f);
         params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
